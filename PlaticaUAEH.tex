@@ -106,18 +106,17 @@
 	\end{columns}
 \end{frame}
 
-\usebackgroundtemplate{\includegraphics[width=\paperwidth]{Mx.jpg}} 
+\usebackgroundtemplate{ \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{Mx.jpg}\hfil}\vfil} }
 \begin{frame}
 
 	\begin{figure}[h]
+	\begin{overprint}
 		\begin{tikzpicture}[scale=1]
-			\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt, circle, fill=black] 
-			%\node[inner sep=0,fill=white, rectangle] at (current page.south west) {\includegraphics[width=\paperwidth]{Mx.jpg}};
+			\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt, circle, fill=black]
 			\draw (1,-2) node (MEX) {};
 			
-			\draw (0,0) node (Test1) {};
-			\draw (1,0) node (Test2) {};
 		\end{tikzpicture}
+	\end{overprint}
 	\end{figure}
 \end{frame}
 
