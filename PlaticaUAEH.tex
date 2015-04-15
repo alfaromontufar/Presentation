@@ -1,0 +1,1475 @@
+\documentclass{beamer}
+
+%\usetheme{default}
+\usetheme{Frankfurt}
+\usecolortheme{default}%{seagull}
+\usefonttheme[onlylarge]{structurebold}
+\setbeamerfont*{frametitle}{size=\normalsize,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{graphics}
+\usepackage{multirow}
+\usetikzlibrary{arrows}
+\usepackage{multimedia}
+\tikzstyle{block}=[draw opacity=0.7,line width=1.4cm]
+
+\newcommand{\redalert}[1]
+{
+	{\color[rgb]{1,0,0}{#1}}
+}
+
+\newcommand{\Titulo}[1]
+{
+	\begin{center}
+		\tikz \draw (0,0) node[fill=green!50,draw]
+		{#1};
+	\end{center}
+}
+
+\title{El grupo de pilas de arena}
+\author{Carlos A. Alfaro}
+\date{}
+
+
+\begin{document}
+
+\begin{frame}
+
+	\maketitle
+
+	\vspace{-2cm}
+
+	\begin{center} 
+		\includegraphics[height=1.5cm]{logo-banxico.jpg}
+	\end{center}	
+\end{frame}
+
+\section{Preliminaries}
+
+
+\begin{frame}
+	\begin{columns}[c]
+		\column{.5\textwidth}
+			\begin{block}{Supuestos sobre gráficas}
+				\begin{itemize}
+					\item<1> son \alert{conexas},
+					\item<2> se permiten \alert{aristas multiples},
+					\item<2> se prohiben \alert{lazos}, 
+					%\item<3> Sumidero
+				\end{itemize}
+			\end{block}
+		\column{.3\textwidth}
+			\begin{tabular}{c}
+				\visible<1>{
+					\begin{tikzpicture}[scale=.5]
+						\path (-30:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v1) {\tiny $G_1$};
+	    					\path (90:1)  node[fill=black!20, draw=black, minimum size=2mm, circle] (v2) {\tiny $G_2$};
+	    					\path (210:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v3) {\tiny $G_3$};
+	    					\path (-2,2) node (no) {};
+	    					\path (-2,-2) node (so) {};
+	    					\path (2,2) node (ne) {};
+	    					\path (2,-2) node (se) {};
+	    					\path (no) edge[red,line width=.1cm] (se);
+	    					\path (so) edge[red,line width=.1cm] (ne);
+		    			\end{tikzpicture}
+				} \\
+				\visible<2>{
+					 \begin{tikzpicture}[scale=.5]
+						\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=2mm, circle]
+						\path (-30:1) node (v1) {};
+	    					\path (90:1)  node (v2) {};
+	    					\path (210:1) node (v3) {};
+		    				\draw (v1) -- (v2) -- (v3);
+		    				\draw (v1) edge[bend left, green] (v3);
+		    				\draw (v1) edge[bend right,green] (v3);
+		    				\draw[red,dashed] (v2) .. controls (2,1.5) and (2,0.5) .. (v2);
+		    			\end{tikzpicture} 
+	    			} \\
+	    			%\visible<3>{
+				%	 \begin{tikzpicture}[scale=.5]
+				%		\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=2mm, circle]
+				%		\path (18:1) node[red,label=right:{\tiny s}] (v4) {};
+	    			%		\path (90:1)  node (s) {};
+	    			%		\path (162:1) node (v1) {};
+	    			%		\path (234:1) node (v2) {};
+	    			%		\path (306:1) node (v3) {};
+	    			%		\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+		    		%	\end{tikzpicture} 
+	    			%} \\
+			\end{tabular}
+	\end{columns}
+\end{frame}
+
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{Mx.jpg}} 
+\begin{frame}
+
+	\begin{figure}[h]
+		\begin{tikzpicture}[scale=1]
+			\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt, circle, fill=black] 
+			%\node[inner sep=0,fill=white, rectangle] at (current page.south west) {\includegraphics[width=\paperwidth]{Mx.jpg}};
+			\draw (1,-2) node (MEX) {};
+			
+			\draw (0,0) node (Test1) {};
+			\draw (1,0) node (Test2) {};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\usebackgroundtemplate{empty} 
+\begin{frame}
+	
+	\begin{block}{Definición}
+	La \alert{matríz Laplaciana} es la matriz (con las filas y columnas indexadas con los vértices de $G$), tal que la entrada $uv$ esta definida por
+	\[
+		L(G)_{u,v}=
+		\begin{cases}
+		deg_G (v) & \text{ si } u=v,\\
+		-m_{u,v} & \text{ en otro caso.}
+		\end{cases}
+	\]
+	donde $m_{u,v}$ es el número de aristas entre $u$ y $v$. 
+	\end{block}
+	
+	\begin{columns}[c]
+			\column{.3\textwidth}
+			\begin{tikzpicture}[scale=1]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+ 				\draw (0,0) node[draw, circle, fill=black] (v0) {};
+ 				\draw (-30:1.2) node[draw, circle, fill=black] (v1) {};
+ 				\draw (90:1.2) node[draw, circle, fill=black] (v2) {};
+ 				\draw (210:1.2) node[draw, circle, fill=black] (v3) {};
+ 				\draw (0,-.3) node {\small $s$};
+ 				\draw (-30:1.5) node {\small $v_1$};
+ 				\draw (90:1.5) node {\small $v_2$};
+ 				\draw (210:1.5) node {\small $v_3$}; 				
+ 				\foreach \x in {1, 2}
+ 				{
+ 					\draw (v0) to (v\x);
+ 				}
+ 				\draw (0,0) circle (1.2);
+			\end{tikzpicture}
+			
+		\column{.5\textwidth}
+			$
+			L(G) = \left[
+			\begin{array}{cccc}
+				2 & -1 & -1 & 0 \\
+				-1 & 3 & -1 & -1 \\
+				-1 & -1 & 3 & -1 \\
+				0 & -1 & -1 & 2 \\
+			\end{array}
+			\right]		
+			$
+	\end{columns}
+
+	
+\end{frame}
+
+
+\begin{frame}
+	Distinguiremos un vértice $s$ de $G$ y lo llamaremos sumidero.
+	
+	\begin{block}{Definición}
+		La matriz Laplaciana sin la fila y sin la columna correspondiente al vértice $s$ es conocida la \alert{matriz Laplaciana reducida} y es denotada por $L(G,s)$.
+	\end{block}
+	
+	\begin{columns}[c]
+			\column{.3\textwidth}
+			\begin{tikzpicture}[scale=1]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+ 				\draw (0,0) node[draw, circle, fill=black] (v0) {};
+ 				\draw (-30:1.2) node[draw, circle, fill=black] (v1) {};
+ 				\draw (90:1.2) node[draw, circle, fill=black] (v2) {};
+ 				\draw (210:1.2) node[draw, circle, fill=black] (v3) {};
+ 				\draw (0,-.3) node {\small $s$};
+ 				\draw (-30:1.5) node {\small $v_1$};
+ 				\draw (90:1.5) node {\small $v_2$};
+ 				\draw (210:1.5) node {\small $v_3$}; 				
+ 				\foreach \x in {1, 2}
+ 				{
+ 					\draw (v0) to (v\x);
+ 				}
+ 				\draw (0,0) circle (1.2);
+			\end{tikzpicture}
+			
+		\column{.5\textwidth}
+			$
+			L(G,s) = \left[
+			\begin{array}{ccc}
+				 3 & -1 & -1 \\
+				-1 & 3 & -1 \\
+				-1 & -1 & 2 \\
+			\end{array}
+			\right]		
+			$
+	\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+
+	En la literatura el grupo de pilas de arena tambien es conocido como el grupo crítico, el grupo Jacobiano, el grupo de Picard, etc.\\
+	\vspace{.5cm}
+	Más aún, existen varias formas equivalentes de definirlo.\\
+	\vspace{.5cm}
+	En esta charla estamos interesados en la descripción algebraica y combinatoria de un grupo de pilas de arena.
+	
+\end{frame}
+
+
+\begin{frame}
+
+	\Titulo{Descripción Combinatoria (Grupo de Pilas de Arena)}
+
+	El conjunto de los vértices no sumidero son denotados por $\widetilde{V}$.
+
+	\begin{block}{Definición}
+		Sea $G=(V,E)$ una multigráfica. Una \alert{configuración} de $G$ es una asignación de enteros \alert{no negativos} a los vértices no sumidero de $G$.
+	\end{block}
+
+	\begin{figure}
+		\begin{tikzpicture}
+			
+			\path (18:1.7) node {\small $v_4$};
+    		%\path (90:1.7)  node {\small $s$};
+    		\path (162:1.7) node {\small $v_1$};
+    		\path (234:1.7) node {\small $v_2$};
+    		\path (306:1.7) node {\small $v_3$};
+    	
+      		\path (18:1) node[fill=black!20, draw=black, minimum size=7mm, circle] (1) {\small $4$};
+    		\path (90:1)  node[fill=black!20, draw=black, minimum size=7mm, circle] (2) {\small $S$};
+    		\path (162:1) node[fill=black!20, draw=black, minimum size=7mm, circle] (3) {\small $1$};
+    		\path (234:1) node[fill=black!20, draw=black, minimum size=7mm, circle] (4) {\small $2$};
+    		\path (306:1) node[fill=black!20, draw=black, minimum size=7mm, circle] (5) {\small $3$};
+      
+      		\draw (1) -- (2) -- (3) -- (4) -- (5) -- (1);
+    	\end{tikzpicture}
+    	\caption{La configuración $(1,2,3,4)$ en $C_5$}
+  \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	La {\bf suma de dos configuraciones} de una multigráfica $G$ es entrada por entrada.
+	
+	\begin{figure}
+		\begin{columns}[c]
+			\column{.25\textwidth}
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+				\path (18:1) node (v4) {\small $1$};
+    			\path (90:1)  node (s) {\small $S$};
+    			\path (162:1) node (v1) {\small $0$};
+    			\path (234:1) node (v2) {\small $2$};
+    			\path (306:1) node (v3) {\small $1$};
+    			\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    		\end{tikzpicture}
+    	
+    		\column{.05\textwidth}    	
+    	$+$
+    	
+    	\column{.25\textwidth}    	
+    	\begin{tikzpicture}
+    		\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+			\path (18:1) node (v4) {\small $1$};
+    		\path (90:1)  node (s) {\small $S$};
+    		\path (162:1) node (v1) {\small $1$};
+    		\path (234:1) node (v2) {\small $1$};
+    		\path (306:1) node (v3) {\small $0$};
+    		\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    	\end{tikzpicture}
+    	
+    	\column{.05\textwidth}    	
+    	$=$
+    	
+    	\column{.25\textwidth}
+    	\begin{tikzpicture}
+    		\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+			\path (18:1) node (v4) {\small $2$};
+    		\path (90:1)  node (s) {\small $S$};
+    		\path (162:1) node (v1) {\small $1$};
+    		\path (234:1) node (v2) {\small $3$};
+    		\path (306:1) node (v3) {\small $1$};
+    		\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    	\end{tikzpicture}
+    \end{columns}
+    \caption{Suma de configuraciones}    
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Definiciones}
+	Sea $\bf a$ una configuración de $G$.
+		\begin{itemize}
+			\item El vértice $v$ es \alert{estable} si $a_v<deg_G(v)$.
+			\item Una configuración es \alert{estable} si todos los vértices no sumidero son estables.
+		\end{itemize}
+	\end{block}
+	
+	\begin{figure}
+		\begin{tabular}{c@{\extracolsep{2cm}}c}
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+					\path (18:1) node (v4) {\small $1$};
+    					\path (90:1)  node (s) {\small $S$};
+    					\path (162:1) node (v1) {\small $1$};
+    					\path (234:1) node (v2) {\small $1$};
+    					\path (306:1) node (v3) {\small $0$};
+    					\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    			\end{tikzpicture} 
+			&
+			\begin{tikzpicture}
+				\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+					\path (18:1) node (v4) {\small $1$};
+    					\path (90:1)  node (s) {\small $S$};
+    					\path (162:1) node (v1) {\small $1$};
+    					\path (234:1) node (v2) {\small $1$};
+    					\path (306:1) node[fill=red!100!black!70] (v3) {\small $2$};
+    					\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    			\end{tikzpicture}   \\  
+			estable & inestable\\	    	
+		\end{tabular}
+    	\caption{Configuraciones}
+  	\end{figure}
+  
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Regla del desbordamiento}
+		Sea $G=(V,E)$ una multigráfica y sea ${\bf a}$ una configuración.
+		Si algún vértice $v$ es tal que $deg_G(v)\leq a_v$, entonces \alert{desbordaremos} el vértice $v$ al restar $deg_G(v)$ a $a_v$ y a cada vecino $u$ de $v$ sumamos $m_{v,u}$.
+	\end{block}
+
+	\begin{figure}
+		\begin{columns}[c]
+   	
+   		\column{.25\textwidth}    	
+   			\begin{tikzpicture}
+   				\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+				\path (18:1) node (v4) {\small $0$};
+   				\path (90:1)  node (s) {\small $S$};
+   				\path (162:1) node (v1) {\small $1$};
+   				\path (234:1) node (v2) {\small $0$};
+   				\path (306:1) node[fill=red!100!black!70] (v3) {\small $4$};
+   				\draw (v4) -- (s) -- (v1) -- (v2) -- (v3);
+				\draw (v3) edge[bend right] (v4);
+				\draw (v3) edge[bend left] (v4);
+   		\end{tikzpicture}
+   	
+   	
+   		\column{.05\textwidth}    	
+   			$\rightarrow$
+   	
+   		\column{.25\textwidth}
+   			\begin{tikzpicture}
+   				\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+				\path (18:1) node (v4) {\small $2$};
+   				\path (90:1)  node (s) {\small $S$};
+   				\path (162:1) node (v1) {\small $1$};
+   				\path (234:1) node (v2) {\small $1$};
+   				\path (306:1) node (v3) {\small $1$};
+   				\draw (v4) -- (s) -- (v1) -- (v2) -- (v3);
+				\draw (v3) edge[bend right] (v4);
+				\draw (v3) edge[bend left] (v4);
+   			\end{tikzpicture}
+   	
+	   	\end{columns}
+    \caption{Desbordamiento de $(1,0,4,0)$.}    
+  	\end{figure}
+	{\tiny (relación matriz laplaciana)}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Proposición}
+		Para cualquier configuración existe una única configuración estable obtenida al desbordar los vértices.
+	\end{block}
+	
+	{\tiny (conmutatividad y norma)}
+	
+	Denotaremos por $s(\bullet)$ a la estabilización de una configuración.
+
+	\begin{figure}
+		\begin{columns}[c]
+			\column{.1\textwidth}
+			\column{.4\textwidth}
+			${\Huge  s}
+			\left(
+				\begin{array}{c}
+				\begin{tikzpicture}
+					\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+					\path (18:1) node (v4) {\small $2$};
+					\path (90:1)  node (s) {\small $S$};
+					\path (162:1) node (v1) {\small $1$};
+					\path (234:1) node (v2) {\small $2$};
+					\path (306:1) node (v3) {\small $2$};
+					\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    			\end{tikzpicture}   	
+    			\end{array}
+    		\right)$
+    	
+    	\column{.1\textwidth}
+    	
+    	$=$
+    	
+    	\column{.4\textwidth}
+    	
+    		\begin{tikzpicture}
+    			\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+				\path (18:1) node (v4) {\small $1$};
+    			\path (90:1)  node (s) {\small $S$};
+    			\path (162:1) node (v1) {\small $0$};
+    			\path (234:1) node (v2) {\small $1$};
+    			\path (306:1) node (v3) {\small $1$};
+    			\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    		\end{tikzpicture}
+    		
+    	\end{columns}
+    	\caption{Configuración estable de $(1,2,2,2)$}    
+  	\end{figure}
+\end{frame}
+
+\begin{frame}
+
+	\begin{block}{Definición}
+		Una configuración $u$ es \alert{recurrente} si existe una configuración \redalert{no cero} $v$ tal que $s(u+v)=u$.
+	\end{block}
+	
+	\begin{figure}
+		\begin{columns}[c]
+			\column{.68\textwidth}
+			${\Huge  s}
+			\left(
+				\begin{array}{ccc}
+					\begin{tikzpicture}
+						\path (18:1)+(-1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v4) {\small $1$};
+						\path (90:1)+(-1.7,0)  node[fill=black!20, draw=black, minimum size=7mm, circle] (s) {\small $S$};
+						\path (162:1)+(-1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v1) {\small $0$};
+						\path (234:1)+(-1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v2) {\small $1$};
+						\path (306:1)+(-1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v3) {\small $1$};
+						\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+						\draw (0,0) node {\small $+$};
+						\path (18:1)+(1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v41) {\small $1$};
+						\path (90:1)+(1.7,0)  node[fill=black!20, draw=black, minimum size=7mm, circle] (s1) {\small $S$};
+						\path (162:1)+(1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v11) {\small $1$};
+						\path (234:1)+(1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v21) {\small $1$};
+						\path (306:1)+(1.7,0) node[fill=black!20, draw=black, minimum size=7mm, circle] (v31) {\small $1$};
+						\draw (s1) -- (v11) -- (v21) -- (v31) -- (v41) -- (s1);
+    				\end{tikzpicture}\\
+
+    			\end{array}
+    		\right)$
+
+			\column{.05\textwidth}
+
+			$=$
+    	
+    		\column{.28\textwidth}
+    		
+    			\begin{tikzpicture}
+					\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=7mm, circle]
+					\path (18:1) node (v4) {\small $1$};
+					\path (90:1)  node (s) {\small $S$};
+					\path (162:1) node (v1) {\small $0$};
+					\path (234:1) node (v2) {\small $1$};
+					\path (306:1) node (v3) {\small $1$};
+					\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
+    			\end{tikzpicture}	
+    	\end{columns}
+    	\caption{(0,1,1,1) es recurrente}    
+  	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\begin{block}{Definición}
+		El \alert{grupo de pilas de arena} de $G$ es el conjunto de configuraciones recurrentes. Y lo denotaremos por $SP(G,s)$.
+	\end{block}
+
+	\begin{block}{Teorema (Burning Algorithm)}
+		Sea $G$ una multigráfica con $s\in V(G)$ un vertice distinguido.
+		Además, sea $\beta=L(G)_s$.
+		Una configuración $u$ es recurrente si y solo si $s(u+\beta)=u$.
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+	
+	{\bf ¿Cuántas configuraciones recurrentes hay?}
+	
+	\begin{block}{Definición}
+		Sea $G$ una multigráfica.
+		Una subgráfica \alert{generadora} es una subgráfica $G'$ de $G$ con $V(G')=V(G)$.
+	\end{block}
+	
+	\begin{block}{Teorema matriz árbol}
+		El número de árboles generadores de una gráfica $G$ es igual a cualquier menor $n-1\times n-1$ de $L(G)$. 
+	\end{block}
+
+	El \redalert{número de configuraciones recurrentes} es igual al \redalert{número de árboles generadores.}
+
+\end{frame}
+
+
+\begin{frame}
+
+
+	Dada una configuración $c$, definimos 
+	\[
+		nivel(c)=\sum_{v} c_v.
+	\]
+	
+	\begin{block}{Teorema}
+		Sea $G=(V,E)$ una gráfica con sink $s$ y $c$ una configuración recurrente, entonces
+		\[
+			| E |-\deg_G (s)  \leq \redalert{nivel(c)} \leq 2| E |-\deg_G (s)-|V|+1
+		\]
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi}
+		\end{center}
+		
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\includegraphics[height=4cm]{Img0.pdf}
+		\end{center}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\begin{tabular}{c@{\extracolsep{-1.3cm}}c}
+				\includegraphics[height=4cm]{Im4.pdf} & {\small nivel = 3}\\
+			\end{tabular}
+		\end{center}
+		
+	\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\begin{tabular}{c@{\extracolsep{-1.3cm}}c}
+				\includegraphics[height=4cm]{Im3.pdf} & {\small nivel = 4}\\
+			\end{tabular}
+		\end{center}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\begin{tabular}{c@{\extracolsep{-1.3cm}}c}
+				\includegraphics[height=4cm]{Im2.pdf} & {\small nivel = 5}\\
+			\end{tabular}
+		\end{center}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\begin{tabular}{c@{\extracolsep{-1.3cm}}c}
+				\includegraphics[height=4cm]{Im1.pdf} & {\small nivel = 6}\\
+			\end{tabular}
+		\end{center}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}	
+
+	Para $i\geq 0$, tomemos \redalert{$n_i$} como el número de configuraciones críticas con nivel \redalert{$i+|E|-\deg(s)$.}
+	
+	La \redalert{función generadora} de las configuraciones críticas es el polinomio
+	\[
+		P(G;y)=\sum_{i=0}^{|E|-|V|+1} n_i y^i
+	\]
+
+\end{frame}
+
+
+\begin{frame}	
+
+	\begin{block}{Definición}
+		Sea $G$ una multigráfica.
+		El polinomio de Tutte de $G$ es el polinomio $T(G;x,y) \in \mathbb{Z}[x,y]$ definido como sigue:
+		\[
+			T(G;x,y)=
+			\begin{cases}
+				1 & \text{ si } E(G)=\emptyset,\\
+				xT(G\slash e) & \text{ si } e \text{ es un puente},\\
+				yT(G\backslash e;x,y) & \text{ si } e \text{ es un lazo},\\
+				T(G\slash e;x,y) + T(G\backslash e; x,y) & \text{ si } e \text{ no es ni lazo ni puente}.
+			\end{cases}
+		\]
+	\end{block}
+	
+	Por ejemplo $T(K_4;x,y)=3x^2+4xy+3y^2+2x+2y+y^3+x^3$
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Teorema [Merino,1997]}
+		La {\bf función generadora} de las configuraciones recurrentes es el {\bf polinomio de Tutte} a lo largo de la linea $x=1$,
+		\[
+			P(G,y)=T(G;1,y).
+		\]
+	\end{block}
+	
+	$P(K_4,y)=6+6y+3y^2+y^3$.
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\Titulo{Descripción Algebraica (Grupo Crítico)}
+
+	La descripción algebraica del grupo de pilas de arena también es conocida como el grupo crítico.\\
+	
+	\vspace{.5cm}
+
+	El \redalert{grupo crítico} de $G$, denotado por $K(G)$, esta dado por
+	\[
+		K(G)=\mathbb{Z}^{n-1}/L(G,s)^{t},
+	\]
+	donde $L(G,s)$ es la matriz Laplaciana reducida.
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Teorema}
+		El grupo de pilas de arena de $G$ junto con la operación $\oplus=s( \cdot + \cdot )$ es un grupo abeliano fínito.
+	\end{block}
+
+	\begin{block}{Proposición}
+		Para toda multigráfica $G$ el grupo de pilas de arena $SP(G,s)\cong K(G)$ para todo $s\in V(G)$.
+	\end{block}
+	{\tiny (relación matriz laplaciana)}
+
+\end{frame}
+
+
+\begin{frame}
+
+	El grupo abeliano $K(G)$ no depende sumidero. 
+	Sin embargo, el conjunto de configuraciones recurrentes, $SP(G,s)$, \alert{sí} depende del sumidero.
+
+	\begin{figure}
+	\begin{tabular}{c@{\extracolsep{1cm}}c}
+		\multirow{6}{3cm}{
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[minimum size=6mm] 
+ 				\draw (0:1) node[draw, circle, fill=blue!20] (v1) {\small $S$};
+ 				\draw (120:1) node[draw, circle] (v2) {\small $u_1$};
+ 				\draw (240:1) node[draw, circle] (v3) {\small $u_2$};
+ 				\draw (v1) to (v2);
+ 				\draw (v2) to [bend right] (v3);
+ 				\draw (v2) to [bend left] (v3);
+ 				\draw (v1) to (v3);
+			\end{tikzpicture}
+		}
+		& Configuraciones recurrentes \\ \cline{2-2}
+		& ( 2 , 1 ) \\
+		& ( 2 , 0 ) \\
+		& {\color[rgb]{1,0,0}( 0 , 2 )} \\
+		& {\color[rgb]{1,0,0}( 1 , 2 )} \\
+		& {\color[rgb]{1,0,0}( 2 , 2 )} \\
+	\end{tabular}
+	\end{figure}
+	
+	\begin{figure}
+	\begin{tabular}{c@{\extracolsep{1cm}}c}
+		\multirow{6}{3cm}{
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[minimum size=6mm] 
+ 				\draw (0:1) node[draw, circle] (v1) {\small $u_2$};
+ 				\draw (120:1) node[draw, circle, fill=blue!20] (v2) {\small $S$};
+ 				\draw (240:1) node[draw, circle] (v3) {\small $u_1$};
+ 				\draw (v1) to (v2);
+ 				\draw (v2) to [bend right] (v3);
+ 				\draw (v2) to [bend left] (v3);
+ 				\draw (v1) to (v3);
+			\end{tikzpicture}
+		}
+		& Configuraciones recurrentes\\ \cline{2-2}
+		& {\color[rgb]{1,0,0}( 1 , 0 )} \\
+		& ( 2 , 0 ) \\
+		& {\color[rgb]{1,0,0}( 0 , 1 )} \\
+		& {\color[rgb]{1,0,0}( 1 , 1 )} \\
+		& ( 2 , 1 ) \\
+	\end{tabular}
+	\end{figure}
+	
+	\hspace{4cm} $K(G)=\mathbb{Z}_5$
+		
+\end{frame}
+
+
+\begin{frame}
+
+	\Titulo{¿Cómo calcular el grupo de pilas de arena?}
+
+	\begin{enumerate}
+		\item El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana reducida.
+	\end{enumerate}
+	
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Teorema [Cori y Rossin 2001]}
+	Si $K_n$ es la gráfica completa de $n$ vértices. 
+	Entonces
+	\[
+		K(K_n)\cong \bigoplus_{i=1}^{n-2} \mathbb{Z}_n.
+	\]
+	\end{block}
+	\begin{proof}
+		\[
+			L(K_n,s)=
+			\left[
+			\begin{array}{cccc}
+				n-1 & -1  & \cdots & -1 \\
+				-1  & n-1 & \cdots & -1 \\
+				\vdots & \vdots & \ddots & \vdots \\
+				-1  &  -1 & \cdots & n-1 \\
+			\end{array}
+			\right]
+			\sim
+			\left[
+			\begin{array}{cccc}
+				1 & 0  & \cdots & 0 \\
+				0  & n & \cdots & 0 \\
+				\vdots & \vdots & \ddots & \vdots \\
+				0  & 0 & \cdots & n \\
+			\end{array}
+			\right]
+		\]
+	\end{proof}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+
+	\Titulo{¿Cómo calcular el grupo de pilas de arena?}
+
+	\begin{enumerate}
+		\item El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana reducida.
+		\item El grupo de pilas de arena se necesita calcular la configuración de desbordado (burning algorithm) y calcular combinatoriamente las configuraciones recurrentes.
+	\end{enumerate}
+	
+\end{frame}
+
+
+\begin{frame}
+
+	Sea $\sigma_{max}$ la configuración $(\deg_G(v_1)-1,...,\deg_G(v_{n-1})-1)$.
+	
+	\begin{block}{Definición}
+		Una configuración recurrente $h$ es {\bf minimal} si no existe una configuración recurrente $h'\neq h$ tal que $h'\leq h$.
+	\end{block}
+	
+	\begin{block}{Teorema}
+		Toda configuración $h$ entre alguna $h_{min}$ y $\sigma_{max}$ es recurrente.
+	\end{block}
+	
+	\begin{center}
+		\includegraphics[height=4cm]{minmax.pdf}
+	\end{center}
+	
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Proposición [Cori y Rossin]}
+		Las configuariones recurrentes minimales de $K_n$ son permutaciones de $(n-2,...,1,0)$.
+	\end{block}
+	
+	\begin{Lemma}
+		La configuración $(n-2, ..., n-2)$ es la identidad en $SP(K_n,s)$.
+	\end{Lemma}
+	
+	\begin{block}{Teorema}
+		Si $n\geq 3$, entonces
+		\begin{itemize}
+			\item las configuraciones $g_j=\sum_{i=1}^{n-1}(n-3)e_i + e_j$ con $1\leq j\leq n-1$ tienen orden $n$, y
+			\item cualesquiera $n-2$ generan a $SP(K_n,s)$.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+
+	\Titulo{Gráficas con conectividad uno.}
+	
+	\begin{block}{Teorema}
+		Sea $G$ una multigráfica y sean $G_1$, $G_2$, ..., $G_l$ sus bloques, entonces
+		\[
+			K(G)=K(G_1)\oplus K(G_2) \oplus \cdots \oplus K(G_l).
+		\]
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\Titulo{El grupo de pilas de arena del ciclo gordo.}
+
+	El ciclo gordo $\mathcal{C}_n$ es la multigráfica cuya gráfica subyacente es un ciclo.
+
+	\begin{figure}[h]
+		\begin{tikzpicture}[scale=1.2]    
+		    \draw (0:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v1) {};
+	 		\draw (60:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v2) {};
+	 		\draw (120:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v3) {};
+	 		\draw (180:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v4) {};
+	 		\draw (240:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v5) {};
+	 		\draw (300:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v6) {};
+    
+		    \draw (0:1.4) node {$v_{n-1}$};
+	 		\draw (60:1.4) node {$v_n$};
+	 		\draw (120:1.4) node {$v_1$};
+	 		\draw (180:1.4) node {$v_2$};
+	 		\draw (240:1.4) node {$v_3$};
+	 		\draw (300:1.4) node {$v_{n-2}$};
+    
+		    \draw (30:1.5) node {$m_{n-1}$};
+	 		\draw (90:1.3) node {$m_n$};
+	 		\draw (150:1.4) node {$m_1$};
+	 		\draw (210:1.4) node {$m_2$};
+	 		\draw (330:1.5) node {$m_{n-2}$};
+    
+		    \foreach \x in {0, .1, .2}
+		    {
+		       \draw (v1) .. controls (30:\x+1) and (30:\x+1) .. (v2);
+		       \draw (v1) .. controls (30:\x+.5) and (30:\x+.5) .. (v2);
+		    }    
+		    \foreach \x in {.8, .85, .9}
+		    {
+		       \draw (30:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
+		    }
+		    \foreach \x in {0, .1, .2}
+		    {
+		       \draw (v2) .. controls (90:\x+1) and (90:\x+1) .. (v3);
+		       \draw (v2) .. controls (90:\x+.5) and (90:\x+.5) .. (v3);
+		    }    
+		    \foreach \x in {.8, .85, .9}
+		    {
+		       \draw (90:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
+		    }
+		    \foreach \x in {0, .1, .2}
+    		{
+		       \draw (v3) .. controls (150:\x+1) and (150:\x+1) .. (v4);
+		       \draw (v3) .. controls (150:\x+.5) and (150:\x+.5) .. (v4);
+		    }    
+		    \foreach \x in {.8, .85, .9}
+		    {
+		       \draw (150:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
+		    }
+		    \foreach \x in {0, .1, .2}
+		    {
+		       \draw (v4) .. controls (210:\x+1) and (210:\x+1) .. (v5);
+		       \draw (v4) .. controls (210:\x+.5) and (210:\x+.5) .. (v5);
+		    }    
+		    \foreach \x in {.8, .85, .9}
+		    {
+		       \draw (210:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
+		    }
+		    \foreach \x in {0, .1, .2}
+		    {
+		       \draw (v6) .. controls (330:\x+1) and (330:\x+1) .. (v1);
+		       \draw (v6) .. controls (330:\x+.5) and (330:\x+.5) .. (v1);
+		    }    
+		    \foreach \x in {.8, .85, .9}
+		    {
+		       \draw (330:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
+		    }
+		    \foreach \x in {250,260,270,280,290}
+		    {
+		    	\draw (\x:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] {};
+		    }
+		\end{tikzpicture}
+		\caption{Ciclo gordo $\mathcal{C}_n$.}
+		\label{Cthickcicle}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Teorema}
+		Sea $\mathcal{C}_{n}$ el ciclo gordo con $m_i$ la multiplicidad entre $v_i$ y $v_{i+1}$, entonces 
+		\[
+			K(\mathcal{C}_{n})=\mathbb{Z}_{\Delta_1} \oplus \left(\bigoplus_{i=2}^{n-1} \mathbb{Z}_{\Delta_i/ \Delta_{i-1}}\right).
+	\]
+		con 
+		\[
+			\Delta_i=
+			\begin{cases}
+				\gcd\left\{m_{j_1} \cdots m_{j_i} \right\}_{1\leq j_1 < \cdots < j_i \leq n} & \text{si } 1 \leq i \leq n-2, \\
+				(-1)^{n} \sum_{i=1}^{n} m_1 m_2 \cdots \hat{m_i} \cdots m_n & \text{si } i=n-1. \\ 
+			\end{cases}
+		\]
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Corolario}
+		Sea $\mathcal{C}_{n}$ el ciclo gordo con $m_i=m$, entonces 
+		\[
+			K(\mathcal{C}_{n})=\left(\bigoplus_{i=1}^{n-2} \mathbb{Z}_m\right)\oplus\mathbb{Z}_{mn}.
+		\]
+	\end{block}
+
+
+	\begin{block}{Corolario}
+		El grupo de pilas de arena del ciclo de $n$ vertices es isomorfo a $\mathbb{Z}_n$.
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\Titulo{Dado un grupo fínito abeliano $\Gamma$}
+	\Titulo{¿Existe una gráfica $G$ tal que $K(G)=\Gamma$?}
+
+	Sí, basta tomar a $G$ como un wedge de ciclos.
+	
+	\begin{tabular}{c@{\extracolsep{1cm}}c}
+	
+		& \multirow{3}{*}{
+		\begin{tikzpicture}[scale=.5]    
+			\draw (0,0) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (s) {};
+			\draw (0:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v1) {};
+		 	\draw (51:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v2) {};
+			\draw (102:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v3) {};
+			\draw (153:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v4) {};
+		 	\draw (204:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v5) {};
+		 	\draw (255:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v6) {};
+			\draw (292:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] (v71) {};
+			\draw (306:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] (v72) {};
+			\draw (320:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] (v73) {};
+			\foreach \x in {1,...,6}
+			{
+				\draw (s) -- (v\x);
+			}
+			\draw (v1) .. controls (0:3) and (51:3) .. node[above] {\small $a_2$} (v2);
+			\draw (v3) .. controls (102:3) and (153:3) .. node[above] {\small $a_1$} (v4);
+			\draw (v5) .. controls (204:3) and (255:3) .. node[left] {\small $a_r$} (v6);
+		\end{tikzpicture}
+		}
+		\\
+		&\\
+		
+		$\mathbb{Z}_{a_1}\oplus \mathbb{Z}_{a_2}\oplus \cdots \mathbb{Z}_{a_r}$
+		&\\
+	\end{tabular}
+	
+\end{frame}
+
+
+\begin{frame}
+	\Titulo{Algunos isomorfismos.}
+	
+	\begin{block}{Teorema [Cori y Rossin, 2000]}
+		Sea $G$ una gráfica y $G^*$ su dual, entonces $K(G)\cong K(G^*)$.
+	\end{block}
+
+	\begin{block}{Teorema [Wagner, 2000]}
+		Sean $G$ y $H$ gráficas. 
+		Si las matroides gráficas de $G$ y $H$ son isomorfas, entonces $K(G)\cong K(H)$.
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}
+
+	\Titulo{Homomorfismos y el grupo de pilas de arena.}
+
+	\begin{block}{Definición}
+		Sean $G$ y $H$ multigráficas.
+		Un \alert{homomorfismo uniforme} de $G$ a $H$, denotado por $f: G\rightarrow H$, es una función $f:V(G)\rightarrow V(H)$ tal que para todos $x,y \in V(H)$ tenemos que
+		\[
+			d_{G[S_x\cup S_y]}(u)=m_{x,y} \text{ para todos } u \in S_x\cup S_y,
+		\]
+		donde $S_x=f^{-1}(x)$ y $S_y=f^{-1}(y)$.
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Ejemplo: Homomorfismo uniforme.}
+		\begin{figure}[h]
+			\begin{tabular}{c@{\extracolsep{2cm}}c}
+				\begin{tikzpicture}[scale=.9]
+					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+	 				\draw (0:1) node[draw, circle, fill=black] (v1) {};
+	 				\draw (0:2) node[draw, circle, fill=black] (v11) {};
+	 				\draw (0:3) node[draw, circle, fill=black] (v12) {};
+ 					\draw (120:1) node[draw, circle, fill=black] (v2) {};
+ 					\draw (240:1) node[draw, circle, fill=black] (v3) {};
+ 					\draw (120:1)+(-1,0) node[draw, circle, fill=black] (v4) {};
+ 					\draw (240:1)+(-1,0) node[draw, circle, fill=black] (v5) {};
+ 					\draw (120:1)+(-2,0) node[draw, circle, fill=black] (v6) {};
+ 					\draw (240:1)+(-2,0) node[draw, circle, fill=black] (v7) {};
+ 					\draw (v1) to (v2);
+ 					\draw (v2) to (v3);
+		 			\draw (v1) to (v3);
+	 				\draw (v3) to (v4);
+ 					\draw (v4) to (v7);
+ 					\draw (v7) to (v6);
+ 					\draw (v6) to (v5);
+ 					\draw (v5) to (v2);
+ 					\draw (v4) .. controls (-.5,2) and (.5,1) .. (v11);
+ 					\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v11);
+ 					\draw (v6) .. controls (-1.5,3) and (.5,2) .. (v12);
+ 					\draw (v7) .. controls (-1.5,-3) and (.5,-2) .. (v12);
+ 					\draw (0:1.4) node {$v_1$};
+ 					\draw (0:2.4) node {$v_8$};
+ 					\draw (0:3.4) node {$v_9$};
+ 					\draw (120:1)+(-.34,0) node {$v_2$};
+ 					\draw (240:1)+(-.34,0) node {$v_3$};
+ 					\draw (120:1)+(-1.34,0) node {$v_4$};
+ 					\draw (240:1)+(-1.34,0) node {$v_5$};
+ 					\draw (120:1)+(-2.34,0) node {$v_6$};
+ 					\draw (240:1)+(-2.34,0) node {$v_7$};
+				\end{tikzpicture}
+				&
+				\begin{tikzpicture}[scale=.9]
+					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+ 					\draw (0:1)+(0,1.8) node[draw, circle, fill=black] (v1) {};
+ 					\draw (120:1)+(0,1.8) node[draw, circle, fill=black] (v2) {};
+ 					\draw (240:1)+(0,1.8) node[draw, circle, fill=black] (v3) {};
+ 					\draw (v1) to (v2);
+ 					\draw (v2) to [bend right] (v3);
+ 					\draw (v2) to [bend left] (v3);
+ 					\draw (v1) to (v3);
+ 					\draw (0:1.4)+(0,1.8) node {$u_1$};
+ 					\draw (120:1.4)+(0,1.8) node {$u_2$};
+ 					\draw (240:1.4)+(0,1.8) node {$u_3$};
+				\end{tikzpicture}
+				\\
+				$G$
+				&
+				$H$
+			\end{tabular}
+		\end{figure}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Teorema}
+		Sean $G$ y $H$ multigráficas y sea $f:G\rightarrow H$ un homomorfismo uniforme sobrejectivo, entonces la función inducida $\widetilde{f}:SP(c(H),s) \rightarrow SP(c(G),t)$ dada por
+		\[
+			\widetilde{f}(u)_v=u_x \in \mathbb{N}^{V(G)}\text{ para todo } v\in S_x=f^{-1}(x),
+		\]
+		es un homomorfismo inyectivo de grupos, es decir, $K(c(H)) \triangleleft K(c(G))$.
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Ejemplo: Homomorfismo uniforme.}
+	\begin{figure}[h]
+		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+	 			\draw (45:1) node[draw, circle, fill=black] (v1) {};
+	 			\draw (135:1) node[draw, circle, fill=black] (v2) {};
+	 			\draw (225:1) node[draw, circle, fill=black] (v3) {};
+ 				\draw (315:1) node[draw, circle, fill=black] (v4) {};
+ 				\draw (v1) to (v3);
+ 				\draw (v3) to (v2);
+	 			\draw (v2) to (v4);
+	 			\draw (v4) to (v1);
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+	 			\draw (0,0)+(0,.5) node {\small $\bf \longrightarrow$};
+	 			\draw (0,.4)+(0,.5) node {\small $\bf f$};
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+ 				\draw (45:1) node[draw, circle, fill=black] (v2) {};
+ 				\draw (315:1) node[draw, circle, fill=black] (v3) {};
+ 				\draw (v2) to [bend right] (v3);
+ 				\draw (v2) to [bend left] (v3);
+			\end{tikzpicture}
+			\\
+			$C_4$
+			&
+			&
+			$K(2)$
+		\end{tabular}
+	\end{figure}
+	
+	Las configuraciones recurrentes de $c(K(2))=\mathcal{C}_3(2,1,1)$ son $(2,0)$, $(2,1)$, $(2,2)$, $(1,2)$ y $(0,2)$.
+	
+	\begin{figure}[h]
+		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+	 			\draw (0:1) node[draw, circle, fill=black] (v1) {};
+	 			\draw (0:1.3) node {\small $s$};
+ 				\draw (120:1) node[draw, circle] (v2) {\small $2$};
+ 				\draw (240:1) node[draw, circle] (v3) {\small $1$};
+ 				\draw (120:1)+(-1,0) node[draw, circle] (v4) {\small $2$};
+ 				\draw (240:1)+(-1,0) node[draw, circle] (v5) {\small $1$};
+ 				\draw (v1) to (v2);
+	 			\draw (v1) to (v3);
+	 			\draw (v3) to (v4);
+ 				\draw (v5) to (v2);
+ 				\draw (v2) to (v3);
+ 				\draw (v4) to (v5);
+ 				\draw (v4) .. controls (-.5,2) and (.5,1) .. (v1);
+ 				\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v1);
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+	 			\draw (0,0)+(0,1.6) node {\small $\bf \longleftarrow$};
+	 			\draw (0,.4)+(0,1.6) node {\small $\bf \widetilde{f}$};
+			\end{tikzpicture}
+			&
+			\begin{tikzpicture}[scale=.9]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+ 				\draw (0:1)+(0,1.1) node[draw, circle, fill=black] (v1) {};
+ 				\draw (0:1.3)+(0,1.1) node {\small $t$};
+ 				\draw (120:1)+(0,1.1) node[draw, circle] (v2) {\small $2$};
+ 				\draw (240:1)+(0,1.1) node[draw, circle] (v3) {\small $1$};
+ 				\draw (v1) to (v2);
+ 				\draw (v2) to [bend right] (v3);
+ 				\draw (v2) to [bend left] (v3);
+ 				\draw (v1) to (v3);
+			\end{tikzpicture}
+			\\
+			$c(C_4)$
+			&
+			&
+			$c(K(2))$
+		\end{tabular}
+	\end{figure}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Teorema}
+		Sea $d$ un número natural, entonces el grupo de pilas de arena del cono del hipercubo $c(Q_d)$ está dado por:
+		\[
+			K(c(Q_d))\cong \bigoplus_{i=1}^{d} {\mathbb Z}_{2i+1}^{\binom{d}{i}}={\mathbb Z}_3^{d} \oplus {\mathbb Z}_5^{\binom{d}{2}} \oplus \cdots \oplus {\mathbb Z}_{2d-1}^{d} \oplus {\mathbb Z}_{2d+1}.
+		\]
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	\Titulo{Programación Líneal Entera y el grupo de pilas de arena.}
+
+	\begin{block}{Teorema}
+		Sea $G$ una multigráfica, $s\in V(G)$, ${\bf 0} \leq {\bf c} \leq {\bf d}_{(G,s)}-{\bf 1}$ una configuración estable de $G$ y ${\bf x}^*$ una solución óptima del siguiente problema líneal entero:
+		\begin{eqnarray}
+			\text{\rm maximizar }   & & |{\bf x}| \nonumber\\
+			\text{\rm sujeto a: } & & {\bf 0}\leq L(G,s)^t{\bf x}+{\bf c} \leq {\bf d}_{(G,s)}-{\bf 1}\\
+            			           & & {\bf x}\geq {\bf 0}\nonumber,
+		\end{eqnarray}
+		entonces $L(G,s)^t{\bf x}^* + {\bf c}\in SP(G,s)$ y $[{\bf c}]=[L(G,s)^t{\bf x}^* + {\bf c}]$.
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Ejemplo}
+	Sea $c=(0,0,1,0)$ una configuración en $(C_5,v_5)$. 
+	El correspondiente programa líneal entero es:
+	\begin{eqnarray*}
+		\text{\rm maximizar } & & x_1+x_2+x_3+x_4 \\
+		\text{\rm sujeto a: } & & \\
+		& &
+			\mathbf{0}
+		\leq
+		\left[
+			\begin{array}{cccc}
+				2 & -1 & 0 & 0 \\
+				-1 & 2 & -1 & 0 \\
+				0 & -1 & 2 & -1 \\
+				0 & 0 & -1 & 2 \\
+			\end{array}
+		\right]
+		\mathbf{x}
+		+
+		\left[
+			\begin{array}{c}
+				0 \\
+				0 \\
+				1 \\
+				0 \\
+			\end{array}
+		\right]
+		\leq
+		\left[
+			\begin{array}{c}
+				1 \\
+				1 \\
+				1 \\
+				1 \\
+			\end{array}
+		\right]\\
+	& & \mathbf{x}\geq \mathbf{0}
+	\end{eqnarray*}
+	Obtenemos que $\mathbf{x}^*=(1,1,1,1)$. 
+	Y $L(G,s)^t{\bf x}^* + {\bf c}=(1,0,1,1)$ es una configuración recurrente.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Corolario}
+		Sea $G$ una multigráfica, ${\bf x}^*$ una solución óptima del siguiente programa líneal entero:
+\begin{eqnarray}
+\text{\rm maximizar }   & & |{\bf x}| \nonumber\\
+\text{\rm sujeto a: } & & {\bf 0}\leq L(G,s)^t{\bf x} \leq {\bf d}_{(G,s)}-{\bf 1}\\
+                       & & {\bf x}\geq {\bf 0}\nonumber,
+\end{eqnarray}
+entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
+\end{block}
+
+\begin{block}{Corolario}
+	Sea $G$ una multigráfica $r$-regular, entonces $r{\bf 1}$ es la identidad del grupo de pilas de arena, $SP(c(G),s)$. 
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	\Titulo{La Familia $\mathcal G_i$}
+	
+	Un resultado clásico (ver [Jacobson,1985]) es que
+	\[
+		K(G)\cong \mathbb{Z}_{d_1} \oplus \mathbb{Z}_{d_2} \oplus \cdots \mathbb{Z}_{d_r},
+	\]
+	donde $d_i> 0$ y $d_i \mid d_j$ si $i\leq j$.\\
+	Los enteros $d_1, \dots, d_r$ son llamados \redalert{factores invariantes}.\\
+	Más aún, $d_i=\Delta_i/ \Delta_{i-1}$, donde $\Delta_0=1$ y $\Delta_i$ es el gcd de los $i\times i$ menores de $L(G)$. 
+
+\end{frame}
+
+
+\begin{frame}
+	
+	Denotemos por:
+	\begin{itemize}
+		\item $\redalert{f_i(G)}$, el número de factores invariantes iguales a $i$ de $K(G)$ y
+		\item $\redalert{f_{\geq 2}(G)}$ al número de factores invariantes mayores a 2 de $K(G)$.
+	\end{itemize}
+	
+	Se sabe (ver [Godsil, 2001]) que 
+	\[
+		f_1(G)+f_{\geq 2}(G)=n-c,
+	\]
+	donde $c$ es el número de componentes conexas.
+	
+	\begin{block}{Definición}
+		Denotemos por $\redalert{\mathcal G_i}$ a la familia de gráficas \redalert{ simples conexas} con $\redalert{f_1(G)=i}$.
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Por ejemplo, la siguiente gráfica pertenece a $\redalert{\mathcal G_2}$.
+		\begin{center}
+			\begin{tabular}{c@{\extracolsep{2cm}}c}
+				\multirow{4}{2cm}{
+					\begin{tikzpicture}[scale=.9]
+						\tikzstyle{every node}=[circle, inner sep=0pt, minimum width=5pt] 	
+						\draw (-1,1) node (v1) [draw, fill] {};
+						\draw (-1,0) node (v2) [draw, fill] {};
+						\draw (0,.5) node (v3) [draw, fill] {};
+						\draw (1,1) node (v4) [draw, fill] {};
+						\draw (1,0) node (v5) [draw, fill] {};
+						\draw (-1.3,1.3) node () {\tiny $v_1$};
+						\draw (-1.3,-.3) node () {\tiny $v_2$};
+						\draw (0,0.2) node () {\tiny $s$};
+						\draw (1.3,1.3) node () {\tiny $v_3$};
+						\draw (1.3,-.3) node () {\tiny $v_4$};
+						\draw (v1) -- (v2) -- (v3) -- (v4) -- (v5) -- (v3) -- (v1);
+					\end{tikzpicture}
+				}
+				& \\
+				&
+				$
+				{\small
+					L(G,s)\sim
+					\left[
+					\begin{array}{cccc}
+						       1      &        0         &           0        &        0        \\
+						       0      &        1         &           0        &        0        \\   
+						       0      &        0         &           3        &        0        \\
+						       0      &        0         &           0        &        3         \\ 
+					\end{array}
+					\right]
+				}
+				$\\
+				&\\
+			\end{tabular}
+		\end{center}
+	\end{block}
+	
+	Una gráfica simple conexa cumple
+	\[
+	1\leq f_1(G) \text{     y     }  f_{\geq 2}(G)\leq n-2.
+	\] 
+	
+\end{frame}
+
+
+\begin{frame}	
+	
+	\begin{block}{Observación}
+		El conjunto $\mathcal G_i$ no es cerrado bajo subgráficas inducidas.\\
+		Por ejemplo, el cono de $S_3$ pertenece a $\mathcal G_2$, pero $S_3$ pertenece a $\mathcal G_3$.\\
+		También, la gráfica $K_6\setminus M_2$ pertenece a $\mathcal G_3$, y $K_5\setminus M_2$ pertenece a $\mathcal G_2$.
+	\end{block}
+	
+	\begin{block}{Teorema [Lorenzini, 1989]}
+		Si $G$ es una gráfica \redalert{simple conexa}, entonces los siguientes enunciados son equivalentes:
+		\begin{enumerate}[i.]
+			\item $G \in \mathcal{G}_1$,
+			\item $G$ es $P_2$-free,
+			\item $G$ es la gráfica completa.
+		\end{enumerate}
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Teorema}
+		Sea $G$ una gráfica \redalert{simple conexa}.
+		Entonces, $G\in \mathcal{G}_2$ si y solamente si $G$ es una de las siguientes gráficas:
+		\begin{enumerate}[i.]
+			\item $K_{n_1,n_2,n_3}$, donde $n_1$, $n_2$ y $n_3$ son o pares o impares.
+			\item $L_{n_1,n_2,n_3}$, si $n_1, n_2, n_3 \geq 3$ y son pares o impares, u otros once casos.
+			\[
+				\begin{tikzpicture}[scale=3]
+					\draw[draw=black!40, line width=15pt] (-.5,0) -- (0,0);
+					\draw[draw=black!40, line width=15pt] (.5,0) -- (0,0);
+					\draw (-.5,0) node[draw, circle, fill=black!40] () {\tiny $K_{n_1}$};
+					\draw (0,0) node[draw, circle, fill=white] () {\tiny $T_{n_2}$};
+					\draw (.5,0) node[draw, circle, fill=black!40] () {\tiny $K_{n_3}$};
+				\end{tikzpicture}
+			\]
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{tabular}{cc}
+		\multirow{7}{5cm}{
+			\includegraphics[scale=.25]{mano.jpg}
+		}
+		& \\
+
+& \\ 		& \\ 
+		& ¡Gracias! \\
+		& \\
+	\end{tabular}
+
+\end{frame}
+
+\end{document}
+
+
