@@ -68,22 +68,21 @@
 			\begin{tabular}{c}
 				\visible<1>{
 					\begin{tikzpicture}[scale=1]
-							\tikzstyle{every edge}=[line width = .1cm]
-							\path (-30:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v1) {\tiny $G_1$};
-	    				\path (90:1)  node[fill=black!20, draw=black, minimum size=2mm, circle] (v2) {\tiny $G_2$};
-	    				\path (210:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v3) {\tiny $G_3$};
-	    				\path (-1,1) node (no) {};
-	    				\path (-1,-1) node (so) {};
-	    				\path (1,1) node (ne) {};
-	    				\path (1,-1) node (se) {};
-	    				\path (no) edge[red,line width=.1cm] (se);
-	    				\path (so) edge[red,line width=.1cm] (ne);
+							%\tikzstyle{every edge}=[line width = .1cm]
+							\draw (-30:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v1) {\tiny $G_1$};
+	    				\draw (90:1)  node[fill=black!20, draw=black, minimum size=2mm, circle] (v2) {\tiny $G_2$};
+	    				\draw (210:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v3) {\tiny $G_3$};
+	    				\draw (-1,1) node (no) {};
+	    				\draw (-1,-1) node (so) {};
+	    				\draw (1,1) node (ne) {};
+	    				\draw (1,-1) node (se) {};
+	    				\draw (no) edge[red,line width=.1cm] (se);
+	    				\draw (so) edge[red,line width=.1cm] (ne);
 		    	\end{tikzpicture}
 				} \\
 				\visible<2-3>{
 					 \begin{tikzpicture}[scale=1]
 								\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=2mm, circle]
-								\tikzstyle{every edge}=[line width = .1cm]
 								\path (-30:1) node (v1) {};
 	    					\path (90:1)  node (v2) {};
 	    					\path (210:1) node (v3) {};
@@ -99,16 +98,20 @@
 
 \usebackgroundtemplate{ \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil\includegraphics[width=\paperwidth]{Mx.jpg}\hfil}\vfil} }
 \begin{frame}
-
-	\begin{figure}[h]
-	\begin{overprint}
-		\begin{tikzpicture}[scale=1]
-			\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt, circle, fill=black]
-			\draw (1,-2) node (MEX) {};
-			
-		\end{tikzpicture}
-	\end{overprint}
-	\end{figure}
+	
+	\begin{tikzpicture}[remember picture, overlay]
+		\node [shift={(7.5cm, 2.5cm)}]  at (current page.south west)
+		{%
+			\begin{tikzpicture}[scale=1]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt, circle, fill=black]
+				\draw (0,1) node (SLP) {};
+				\draw (0,0) node (MEX) {};
+				\draw (-.5,-1.5) node (GRO) {};
+			\end{tikzpicture}
+		};
+	\end{tikzpicture}
+	\end{overlay}
+	
 \end{frame}
 
 \usebackgroundtemplate{empty} 
