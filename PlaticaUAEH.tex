@@ -56,52 +56,43 @@
 \begin{frame}
 	\begin{columns}[c]
 		\column{.5\textwidth}
-			\begin{block}{Supuestos sobre gráficas}
+			\begin{block}{Supuestos}
 				\begin{itemize}
 					\item<1> son \alert{conexas},
 					\item<2> se permiten \alert{aristas multiples},
-					\item<2> se prohiben \alert{lazos}, 
+					\item<3> se prohiben \alert{lazos}, 
 					%\item<3> Sumidero
 				\end{itemize}
 			\end{block}
 		\column{.3\textwidth}
 			\begin{tabular}{c}
 				\visible<1>{
-					\begin{tikzpicture}[scale=.5]
-						\path (-30:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v1) {\tiny $G_1$};
-	    					\path (90:1)  node[fill=black!20, draw=black, minimum size=2mm, circle] (v2) {\tiny $G_2$};
-	    					\path (210:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v3) {\tiny $G_3$};
-	    					\path (-2,2) node (no) {};
-	    					\path (-2,-2) node (so) {};
-	    					\path (2,2) node (ne) {};
-	    					\path (2,-2) node (se) {};
-	    					\path (no) edge[red,line width=.1cm] (se);
-	    					\path (so) edge[red,line width=.1cm] (ne);
-		    			\end{tikzpicture}
+					\begin{tikzpicture}[scale=1]
+							\tikzstyle{every edge}=[line width = .1cm]
+							\path (-30:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v1) {\tiny $G_1$};
+	    				\path (90:1)  node[fill=black!20, draw=black, minimum size=2mm, circle] (v2) {\tiny $G_2$};
+	    				\path (210:1) node[fill=black!20, draw=black, minimum size=2mm, circle] (v3) {\tiny $G_3$};
+	    				\path (-1,1) node (no) {};
+	    				\path (-1,-1) node (so) {};
+	    				\path (1,1) node (ne) {};
+	    				\path (1,-1) node (se) {};
+	    				\path (no) edge[red,line width=.1cm] (se);
+	    				\path (so) edge[red,line width=.1cm] (ne);
+		    	\end{tikzpicture}
 				} \\
-				\visible<2>{
-					 \begin{tikzpicture}[scale=.5]
-						\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=2mm, circle]
-						\path (-30:1) node (v1) {};
+				\visible<2-3>{
+					 \begin{tikzpicture}[scale=1]
+								\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=2mm, circle]
+								\tikzstyle{every edge}=[line width = .1cm]
+								\path (-30:1) node (v1) {};
 	    					\path (90:1)  node (v2) {};
 	    					\path (210:1) node (v3) {};
 		    				\draw (v1) -- (v2) -- (v3);
 		    				\draw (v1) edge[bend left, green] (v3);
 		    				\draw (v1) edge[bend right,green] (v3);
-		    				\draw[red,dashed] (v2) .. controls (2,1.5) and (2,0.5) .. (v2);
-		    			\end{tikzpicture} 
+		    				\draw[red, dashed] (v2) .. controls (2,1.5) and (2,0.5) .. (v2);
+		    	\end{tikzpicture} 
 	    			} \\
-	    			%\visible<3>{
-				%	 \begin{tikzpicture}[scale=.5]
-				%		\tikzstyle{every node}=[fill=black!20, draw=black, minimum size=2mm, circle]
-				%		\path (18:1) node[red,label=right:{\tiny s}] (v4) {};
-	    			%		\path (90:1)  node (s) {};
-	    			%		\path (162:1) node (v1) {};
-	    			%		\path (234:1) node (v2) {};
-	    			%		\path (306:1) node (v3) {};
-	    			%		\draw (s) -- (v1) -- (v2) -- (v3) -- (v4) -- (s);
-		    		%	\end{tikzpicture} 
-	    			%} \\
 			\end{tabular}
 	\end{columns}
 \end{frame}
