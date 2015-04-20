@@ -412,8 +412,13 @@
 
 
 \begin{frame}
+
+	\begin{block}{Teorema}
+		El conjunto de configuraciones recurrentes de $(G,s)$ junto con la operación $\oplus=s( \cdot + \cdot )$ forman un grupo abeliano fínito.
+	\end{block}
+
 	\begin{block}{Definición}
-		El \alert{grupo de pilas de arena} de $G$ es el conjunto de configuraciones recurrentes. Y lo denotaremos por $SP(G,s)$.
+		El \alert{grupo de pilas de arena} $SP(G,s)$ de $G$ es el conjunto de configuraciones recurrentes.
 	\end{block}
 
 \end{frame}
@@ -471,6 +476,85 @@
 	
 	\hspace{4cm} $K(G)=\mathbb{Z}_5$
 		
+\end{frame}
+
+
+\subsection{Configuraciones minimales y maximales}
+
+
+\begin{frame}
+
+	\frametitle{Configuraciones minimales y maximales}
+		
+	\begin{block}{Definición}
+		Sea \alert{$\sigma_{max}$} la configuración $(\deg_G(v_1)-1,...,\deg_G(v_{n-1})-1)$.
+	\end{block}
+	
+	\begin{block}{Definición}
+		Una configuración recurrente $h$ es \alert{minimal} si no existe una configuración recurrente $h'\neq h$ tal que $h'\leq h$.
+	\end{block}
+	
+	\begin{block}{Teorema}
+		Toda configuración $h$ entre alguna $h_{min}$ y $\sigma_{max}$ es recurrente.
+	\end{block}
+	
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi}
+		\end{center}
+		
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Ejemplo}
+		Consideremos las configuraciones recurrentes de $K_4$.
+		
+		\begin{center}
+			\includegraphics[height=4cm]{Img0.pdf}
+		\end{center}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Proposición [Cori y Rossin]}
+		Las configuariones recurrentes minimales de $K_n$ son permutaciones de $(n-2,...,1,0)$.
+	\end{block}
+	
+	\begin{Lemma}
+		La configuración $(n-2, ..., n-2)$ es la identidad en $SP(K_n,s)$.
+	\end{Lemma}
+
+	\begin{center}
+		\includegraphics[height=4cm]{minmax.pdf}
+	\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Teorema}
+		Si $n\geq 3$, entonces
+		\begin{itemize}
+			\item las configuraciones $g_j=\sum_{i=1}^{n-1}(n-3)e_i + e_j$ con $1\leq j\leq n-1$ tienen orden $n$, y
+			\item cualesquiera $n-2$ generan a $SP(K_n,s)$.
+		\end{itemize}
+	\end{block}
+	
 \end{frame}
 
 
@@ -632,20 +716,6 @@
 		Consideremos las configuraciones recurrentes de $K_4$.
 		
 		\begin{center}
-			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi}
-		\end{center}
-		
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-	
-	\begin{block}{Ejemplo}
-		Consideremos las configuraciones recurrentes de $K_4$.
-		
-		\begin{center}
 			\includegraphics[height=4cm]{Img0.pdf}
 		\end{center}
 	\end{block}
@@ -741,9 +811,94 @@
 \end{frame}
 
 
+\subsection{GPA y Programación Líneal Entera}
+
+
+\begin{frame}
+	\frametitle{GPA y Programación Líneal Entera}
+
+	\begin{block}{Teorema}
+		Sea $G$ una gráfica, $s\in V(G)$, ${\bf 0} \leq {\bf c} \leq {\bf d}_{(G,s)}-{\bf 1}$ una configuración estable de $G$ y ${\bf x}^*$ una solución óptima del siguiente problema líneal entero:
+		\begin{eqnarray}
+			\text{\rm maximizar }   & & |{\bf x}| \nonumber\\
+			\text{\rm sujeto a: } & & {\bf 0}\leq L(G,s)^t{\bf x}+{\bf c} \leq {\bf d}_{(G,s)}-{\bf 1}\\
+            			           & & {\bf x}\geq {\bf 0}\nonumber,
+		\end{eqnarray}
+		entonces $L(G,s)^t{\bf x}^* + {\bf c}\in SP(G,s)$ y $[{\bf c}]=[L(G,s)^t{\bf x}^* + {\bf c}]$.
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Ejemplo}
+	Sea $c=(0,0,1,0)$ una configuración en $(C_5,v_5)$. 
+	El correspondiente programa líneal entero es:
+	\begin{eqnarray*}
+		\text{\rm maximizar } & & x_1+x_2+x_3+x_4 \\
+		\text{\rm sujeto a: } & & \\
+		& &
+			\mathbf{0}
+		\leq
+		\left[
+			\begin{array}{cccc}
+				2 & -1 & 0 & 0 \\
+				-1 & 2 & -1 & 0 \\
+				0 & -1 & 2 & -1 \\
+				0 & 0 & -1 & 2 \\
+			\end{array}
+		\right]
+		\mathbf{x}
+		+
+		\left[
+			\begin{array}{c}
+				0 \\
+				0 \\
+				1 \\
+				0 \\
+			\end{array}
+		\right]
+		\leq
+		\left[
+			\begin{array}{c}
+				1 \\
+				1 \\
+				1 \\
+				1 \\
+			\end{array}
+		\right]\\
+	& & \mathbf{x}\geq \mathbf{0}
+	\end{eqnarray*}
+	Obtenemos que $\mathbf{x}^*=(1,1,1,1)$. 
+	Y $L(G,s)^t{\bf x}^* + {\bf c}=(1,0,1,1)$ es una configuración recurrente.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Corolario}
+		Sea $G$ una gráfica, ${\bf x}^*$ una solución óptima del siguiente programa líneal entero:
+\begin{eqnarray}
+\text{\rm maximizar }   & & |{\bf x}| \nonumber\\
+\text{\rm sujeto a: } & & {\bf 0}\leq L(G,s)^t{\bf x} \leq {\bf d}_{(G,s)}-{\bf 1}\\
+                       & & {\bf x}\geq {\bf 0}\nonumber,
+\end{eqnarray}
+entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
+\end{block}
+
+\begin{block}{Corolario}
+	Sea $G$ una gráfica $r$-regular, entonces $r{\bf 1}$ es la identidad del grupo de pilas de arena, $SP(c(G),s)$. 
+\end{block}
+
+\end{frame}
+
 \section{Grupo Crítico}
 
+
 \subsection*{}
+
 
 \begin{frame}
 	
@@ -757,19 +912,15 @@
 	
 	\vspace{.5cm}
 
-	El \redalert{grupo crítico} de $G$, denotado por $K(G)$, esta dado por
+	El \redalert{grupo crítico} de $G$, denotado por $K(G)$, está definido como la parte de torción del cokernel de la matriz Laplaciana de $G$.
 	\[
-		K(G)=\mathbb{Z}^{n-1}/L(G,s)^{t},
+		K(G)=cokernel(L(G))=\mathbb{Z}^{n-1}/L(G,s)^{t},
 	\]
 	donde $L(G,s)$ es la matriz Laplaciana reducida.
 \end{frame}
 
 
 \begin{frame}
-	
-	\begin{block}{Teorema}
-		El grupo de pilas de arena de $G$ junto con la operación $\oplus=s( \cdot + \cdot )$ es un grupo abeliano fínito.
-	\end{block}
 
 	\begin{block}{Proposición}
 		Para toda gráfica $G$ el grupo de pilas de arena $SP(G,s)\cong K(G)$ para todo $s\in V(G)$.
@@ -839,43 +990,6 @@
 \end{frame}
 
 
-\begin{frame}
-
-	Sea $\sigma_{max}$ la configuración $(\deg_G(v_1)-1,...,\deg_G(v_{n-1})-1)$.
-	
-	\begin{block}{Definición}
-		Una configuración recurrente $h$ es {\bf minimal} si no existe una configuración recurrente $h'\neq h$ tal que $h'\leq h$.
-	\end{block}
-	
-	\begin{block}{Teorema}
-		Toda configuración $h$ entre alguna $h_{min}$ y $\sigma_{max}$ es recurrente.
-	\end{block}
-	
-	\begin{center}
-		\includegraphics[height=4cm]{minmax.pdf}
-	\end{center}
-	
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Proposición [Cori y Rossin]}
-		Las configuariones recurrentes minimales de $K_n$ son permutaciones de $(n-2,...,1,0)$.
-	\end{block}
-	
-	\begin{Lemma}
-		La configuración $(n-2, ..., n-2)$ es la identidad en $SP(K_n,s)$.
-	\end{Lemma}
-	
-	\begin{block}{Teorema}
-		Si $n\geq 3$, entonces
-		\begin{itemize}
-			\item las configuraciones $g_j=\sum_{i=1}^{n-1}(n-3)e_i + e_j$ con $1\leq j\leq n-1$ tienen orden $n$, y
-			\item cualesquiera $n-2$ generan a $SP(K_n,s)$.
-		\end{itemize}
-	\end{block}
-\end{frame}
 
 \begin{frame}
 
@@ -1067,278 +1181,197 @@
 \end{frame}
 
 
-\begin{frame}
-
-	\Titulo{Homomorfismos y el grupo de pilas de arena.}
-
-	\begin{block}{Definición}
-		Sean $G$ y $H$ gráficas.
-		Un \alert{homomorfismo uniforme} de $G$ a $H$, denotado por $f: G\rightarrow H$, es una función $f:V(G)\rightarrow V(H)$ tal que para todos $x,y \in V(H)$ tenemos que
-		\[
-			d_{G[S_x\cup S_y]}(u)=m_{x,y} \text{ para todos } u \in S_x\cup S_y,
-		\]
-		donde $S_x=f^{-1}(x)$ y $S_y=f^{-1}(y)$.
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Ejemplo: Homomorfismo uniforme.}
-		\begin{figure}[h]
-			\begin{tabular}{c@{\extracolsep{2cm}}c}
-				\begin{tikzpicture}[scale=.9]
-					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-	 				\draw (0:1) node[draw, circle, fill=black] (v1) {};
-	 				\draw (0:2) node[draw, circle, fill=black] (v11) {};
-	 				\draw (0:3) node[draw, circle, fill=black] (v12) {};
- 					\draw (120:1) node[draw, circle, fill=black] (v2) {};
- 					\draw (240:1) node[draw, circle, fill=black] (v3) {};
- 					\draw (120:1)+(-1,0) node[draw, circle, fill=black] (v4) {};
- 					\draw (240:1)+(-1,0) node[draw, circle, fill=black] (v5) {};
- 					\draw (120:1)+(-2,0) node[draw, circle, fill=black] (v6) {};
- 					\draw (240:1)+(-2,0) node[draw, circle, fill=black] (v7) {};
- 					\draw (v1) to (v2);
- 					\draw (v2) to (v3);
-		 			\draw (v1) to (v3);
-	 				\draw (v3) to (v4);
- 					\draw (v4) to (v7);
- 					\draw (v7) to (v6);
- 					\draw (v6) to (v5);
- 					\draw (v5) to (v2);
- 					\draw (v4) .. controls (-.5,2) and (.5,1) .. (v11);
- 					\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v11);
- 					\draw (v6) .. controls (-1.5,3) and (.5,2) .. (v12);
- 					\draw (v7) .. controls (-1.5,-3) and (.5,-2) .. (v12);
- 					\draw (0:1.4) node {$v_1$};
- 					\draw (0:2.4) node {$v_8$};
- 					\draw (0:3.4) node {$v_9$};
- 					\draw (120:1)+(-.34,0) node {$v_2$};
- 					\draw (240:1)+(-.34,0) node {$v_3$};
- 					\draw (120:1)+(-1.34,0) node {$v_4$};
- 					\draw (240:1)+(-1.34,0) node {$v_5$};
- 					\draw (120:1)+(-2.34,0) node {$v_6$};
- 					\draw (240:1)+(-2.34,0) node {$v_7$};
-				\end{tikzpicture}
-				&
-				\begin{tikzpicture}[scale=.9]
-					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
- 					\draw (0:1)+(0,1.8) node[draw, circle, fill=black] (v1) {};
- 					\draw (120:1)+(0,1.8) node[draw, circle, fill=black] (v2) {};
- 					\draw (240:1)+(0,1.8) node[draw, circle, fill=black] (v3) {};
- 					\draw (v1) to (v2);
- 					\draw (v2) to [bend right] (v3);
- 					\draw (v2) to [bend left] (v3);
- 					\draw (v1) to (v3);
- 					\draw (0:1.4)+(0,1.8) node {$u_1$};
- 					\draw (120:1.4)+(0,1.8) node {$u_2$};
- 					\draw (240:1.4)+(0,1.8) node {$u_3$};
-				\end{tikzpicture}
-				\\
-				$G$
-				&
-				$H$
-			\end{tabular}
-		\end{figure}
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Teorema}
-		Sean $G$ y $H$ gráficas y sea $f:G\rightarrow H$ un homomorfismo uniforme sobrejectivo, entonces la función inducida $\widetilde{f}:SP(c(H),s) \rightarrow SP(c(G),t)$ dada por
-		\[
-			\widetilde{f}(u)_v=u_x \in \mathbb{N}^{V(G)}\text{ para todo } v\in S_x=f^{-1}(x),
-		\]
-		es un homomorfismo inyectivo de grupos, es decir, $K(c(H)) \triangleleft K(c(G))$.
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Ejemplo: Homomorfismo uniforme.}
-	\begin{figure}[h]
-		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
-			\begin{tikzpicture}[scale=.9]
-				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-	 			\draw (45:1) node[draw, circle, fill=black] (v1) {};
-	 			\draw (135:1) node[draw, circle, fill=black] (v2) {};
-	 			\draw (225:1) node[draw, circle, fill=black] (v3) {};
- 				\draw (315:1) node[draw, circle, fill=black] (v4) {};
- 				\draw (v1) to (v3);
- 				\draw (v3) to (v2);
-	 			\draw (v2) to (v4);
-	 			\draw (v4) to (v1);
-			\end{tikzpicture}
-			&
-			\begin{tikzpicture}[scale=.9]
-				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-	 			\draw (0,0)+(0,.5) node {\small $\bf \longrightarrow$};
-	 			\draw (0,.4)+(0,.5) node {\small $\bf f$};
-			\end{tikzpicture}
-			&
-			\begin{tikzpicture}[scale=.9]
-				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
- 				\draw (45:1) node[draw, circle, fill=black] (v2) {};
- 				\draw (315:1) node[draw, circle, fill=black] (v3) {};
- 				\draw (v2) to [bend right] (v3);
- 				\draw (v2) to [bend left] (v3);
-			\end{tikzpicture}
-			\\
-			$C_4$
-			&
-			&
-			$K(2)$
-		\end{tabular}
-	\end{figure}
-	
-	Las configuraciones recurrentes de $c(K(2))=\mathcal{C}_3(2,1,1)$ son $(2,0)$, $(2,1)$, $(2,2)$, $(1,2)$ y $(0,2)$.
-	
-	\begin{figure}[h]
-		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
-			\begin{tikzpicture}[scale=.9]
-				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-	 			\draw (0:1) node[draw, circle, fill=black] (v1) {};
-	 			\draw (0:1.3) node {\small $s$};
- 				\draw (120:1) node[draw, circle] (v2) {\small $2$};
- 				\draw (240:1) node[draw, circle] (v3) {\small $1$};
- 				\draw (120:1)+(-1,0) node[draw, circle] (v4) {\small $2$};
- 				\draw (240:1)+(-1,0) node[draw, circle] (v5) {\small $1$};
- 				\draw (v1) to (v2);
-	 			\draw (v1) to (v3);
-	 			\draw (v3) to (v4);
- 				\draw (v5) to (v2);
- 				\draw (v2) to (v3);
- 				\draw (v4) to (v5);
- 				\draw (v4) .. controls (-.5,2) and (.5,1) .. (v1);
- 				\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v1);
-			\end{tikzpicture}
-			&
-			\begin{tikzpicture}[scale=.9]
-				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-	 			\draw (0,0)+(0,1.6) node {\small $\bf \longleftarrow$};
-	 			\draw (0,.4)+(0,1.6) node {\small $\bf \widetilde{f}$};
-			\end{tikzpicture}
-			&
-			\begin{tikzpicture}[scale=.9]
-				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
- 				\draw (0:1)+(0,1.1) node[draw, circle, fill=black] (v1) {};
- 				\draw (0:1.3)+(0,1.1) node {\small $t$};
- 				\draw (120:1)+(0,1.1) node[draw, circle] (v2) {\small $2$};
- 				\draw (240:1)+(0,1.1) node[draw, circle] (v3) {\small $1$};
- 				\draw (v1) to (v2);
- 				\draw (v2) to [bend right] (v3);
- 				\draw (v2) to [bend left] (v3);
- 				\draw (v1) to (v3);
-			\end{tikzpicture}
-			\\
-			$c(C_4)$
-			&
-			&
-			$c(K(2))$
-		\end{tabular}
-	\end{figure}
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Teorema}
-		Sea $d$ un número natural, entonces el grupo de pilas de arena del cono del hipercubo $c(Q_d)$ está dado por:
-		\[
-			K(c(Q_d))\cong \bigoplus_{i=1}^{d} {\mathbb Z}_{2i+1}^{\binom{d}{i}}={\mathbb Z}_3^{d} \oplus {\mathbb Z}_5^{\binom{d}{2}} \oplus \cdots \oplus {\mathbb Z}_{2d-1}^{d} \oplus {\mathbb Z}_{2d+1}.
-		\]
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-	\Titulo{Programación Líneal Entera y el grupo de pilas de arena.}
-
-	\begin{block}{Teorema}
-		Sea $G$ una gráfica, $s\in V(G)$, ${\bf 0} \leq {\bf c} \leq {\bf d}_{(G,s)}-{\bf 1}$ una configuración estable de $G$ y ${\bf x}^*$ una solución óptima del siguiente problema líneal entero:
-		\begin{eqnarray}
-			\text{\rm maximizar }   & & |{\bf x}| \nonumber\\
-			\text{\rm sujeto a: } & & {\bf 0}\leq L(G,s)^t{\bf x}+{\bf c} \leq {\bf d}_{(G,s)}-{\bf 1}\\
-            			           & & {\bf x}\geq {\bf 0}\nonumber,
-		\end{eqnarray}
-		entonces $L(G,s)^t{\bf x}^* + {\bf c}\in SP(G,s)$ y $[{\bf c}]=[L(G,s)^t{\bf x}^* + {\bf c}]$.
-	\end{block}
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Ejemplo}
-	Sea $c=(0,0,1,0)$ una configuración en $(C_5,v_5)$. 
-	El correspondiente programa líneal entero es:
-	\begin{eqnarray*}
-		\text{\rm maximizar } & & x_1+x_2+x_3+x_4 \\
-		\text{\rm sujeto a: } & & \\
-		& &
-			\mathbf{0}
-		\leq
-		\left[
-			\begin{array}{cccc}
-				2 & -1 & 0 & 0 \\
-				-1 & 2 & -1 & 0 \\
-				0 & -1 & 2 & -1 \\
-				0 & 0 & -1 & 2 \\
-			\end{array}
-		\right]
-		\mathbf{x}
-		+
-		\left[
-			\begin{array}{c}
-				0 \\
-				0 \\
-				1 \\
-				0 \\
-			\end{array}
-		\right]
-		\leq
-		\left[
-			\begin{array}{c}
-				1 \\
-				1 \\
-				1 \\
-				1 \\
-			\end{array}
-		\right]\\
-	& & \mathbf{x}\geq \mathbf{0}
-	\end{eqnarray*}
-	Obtenemos que $\mathbf{x}^*=(1,1,1,1)$. 
-	Y $L(G,s)^t{\bf x}^* + {\bf c}=(1,0,1,1)$ es una configuración recurrente.
-\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Corolario}
-		Sea $G$ una gráfica, ${\bf x}^*$ una solución óptima del siguiente programa líneal entero:
-\begin{eqnarray}
-\text{\rm maximizar }   & & |{\bf x}| \nonumber\\
-\text{\rm sujeto a: } & & {\bf 0}\leq L(G,s)^t{\bf x} \leq {\bf d}_{(G,s)}-{\bf 1}\\
-                       & & {\bf x}\geq {\bf 0}\nonumber,
-\end{eqnarray}
-entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
-\end{block}
-
-\begin{block}{Corolario}
-	Sea $G$ una gráfica $r$-regular, entonces $r{\bf 1}$ es la identidad del grupo de pilas de arena, $SP(c(G),s)$. 
-\end{block}
-
-\end{frame}
+%\begin{frame}
+%
+%	\Titulo{Homomorfismos y el grupo de pilas de arena.}
+%
+%	\begin{block}{Definición}
+%		Sean $G$ y $H$ gráficas.
+%		Un \alert{homomorfismo uniforme} de $G$ a $H$, denotado por $f: G\rightarrow H$, es una función $f:V(G)\rightarrow V(H)$ tal que para todos $x,y \in V(H)$ tenemos que
+%		\[
+%			d_{G[S_x\cup S_y]}(u)=m_{x,y} \text{ para todos } u \in S_x\cup S_y,
+%		\]
+%		donde $S_x=f^{-1}(x)$ y $S_y=f^{-1}(y)$.
+%	\end{block}
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%
+%	\begin{block}{Ejemplo: Homomorfismo uniforme.}
+%		\begin{figure}[h]
+%			\begin{tabular}{c@{\extracolsep{2cm}}c}
+%				\begin{tikzpicture}[scale=.9]
+%					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+%	 				\draw (0:1) node[draw, circle, fill=black] (v1) {};
+%	 				\draw (0:2) node[draw, circle, fill=black] (v11) {};
+%	 				\draw (0:3) node[draw, circle, fill=black] (v12) {};
+% 					\draw (120:1) node[draw, circle, fill=black] (v2) {};
+% 					\draw (240:1) node[draw, circle, fill=black] (v3) {};
+% 					\draw (120:1)+(-1,0) node[draw, circle, fill=black] (v4) {};
+% 					\draw (240:1)+(-1,0) node[draw, circle, fill=black] (v5) {};
+% 					\draw (120:1)+(-2,0) node[draw, circle, fill=black] (v6) {};
+% 					\draw (240:1)+(-2,0) node[draw, circle, fill=black] (v7) {};
+% 					\draw (v1) to (v2);
+% 					\draw (v2) to (v3);
+%		 			\draw (v1) to (v3);
+%	 				\draw (v3) to (v4);
+% 					\draw (v4) to (v7);
+% 					\draw (v7) to (v6);
+% 					\draw (v6) to (v5);
+% 					\draw (v5) to (v2);
+% 					\draw (v4) .. controls (-.5,2) and (.5,1) .. (v11);
+% 					\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v11);
+% 					\draw (v6) .. controls (-1.5,3) and (.5,2) .. (v12);
+% 					\draw (v7) .. controls (-1.5,-3) and (.5,-2) .. (v12);
+% 					\draw (0:1.4) node {$v_1$};
+% 					\draw (0:2.4) node {$v_8$};
+% 					\draw (0:3.4) node {$v_9$};
+% 					\draw (120:1)+(-.34,0) node {$v_2$};
+% 					\draw (240:1)+(-.34,0) node {$v_3$};
+% 					\draw (120:1)+(-1.34,0) node {$v_4$};
+% 					\draw (240:1)+(-1.34,0) node {$v_5$};
+% 					\draw (120:1)+(-2.34,0) node {$v_6$};
+% 					\draw (240:1)+(-2.34,0) node {$v_7$};
+%				\end{tikzpicture}
+%				&
+%				\begin{tikzpicture}[scale=.9]
+%					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+% 					\draw (0:1)+(0,1.8) node[draw, circle, fill=black] (v1) {};
+% 					\draw (120:1)+(0,1.8) node[draw, circle, fill=black] (v2) {};
+% 					\draw (240:1)+(0,1.8) node[draw, circle, fill=black] (v3) {};
+% 					\draw (v1) to (v2);
+% 					\draw (v2) to [bend right] (v3);
+% 					\draw (v2) to [bend left] (v3);
+% 					\draw (v1) to (v3);
+% 					\draw (0:1.4)+(0,1.8) node {$u_1$};
+% 					\draw (120:1.4)+(0,1.8) node {$u_2$};
+% 					\draw (240:1.4)+(0,1.8) node {$u_3$};
+%				\end{tikzpicture}
+%				\\
+%				$G$
+%				&
+%				$H$
+%			\end{tabular}
+%		\end{figure}
+%	\end{block}
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%
+%	\begin{block}{Teorema}
+%		Sean $G$ y $H$ gráficas y sea $f:G\rightarrow H$ un homomorfismo uniforme sobrejectivo, entonces la función inducida $\widetilde{f}:SP(c(H),s) \rightarrow SP(c(G),t)$ dada por
+%		\[
+%			\widetilde{f}(u)_v=u_x \in \mathbb{N}^{V(G)}\text{ para todo } v\in S_x=f^{-1}(x),
+%		\]
+%		es un homomorfismo inyectivo de grupos, es decir, $K(c(H)) \triangleleft K(c(G))$.
+%	\end{block}
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%
+%	\begin{block}{Ejemplo: Homomorfismo uniforme.}
+%	\begin{figure}[h]
+%		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
+%			\begin{tikzpicture}[scale=.9]
+%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+%	 			\draw (45:1) node[draw, circle, fill=black] (v1) {};
+%	 			\draw (135:1) node[draw, circle, fill=black] (v2) {};
+%	 			\draw (225:1) node[draw, circle, fill=black] (v3) {};
+% 				\draw (315:1) node[draw, circle, fill=black] (v4) {};
+% 				\draw (v1) to (v3);
+% 				\draw (v3) to (v2);
+%	 			\draw (v2) to (v4);
+%	 			\draw (v4) to (v1);
+%			\end{tikzpicture}
+%			&
+%			\begin{tikzpicture}[scale=.9]
+%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+%	 			\draw (0,0)+(0,.5) node {\small $\bf \longrightarrow$};
+%	 			\draw (0,.4)+(0,.5) node {\small $\bf f$};
+%			\end{tikzpicture}
+%			&
+%			\begin{tikzpicture}[scale=.9]
+%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+% 				\draw (45:1) node[draw, circle, fill=black] (v2) {};
+% 				\draw (315:1) node[draw, circle, fill=black] (v3) {};
+% 				\draw (v2) to [bend right] (v3);
+% 				\draw (v2) to [bend left] (v3);
+%			\end{tikzpicture}
+%			\\
+%			$C_4$
+%			&
+%			&
+%			$K(2)$
+%		\end{tabular}
+%	\end{figure}
+%	
+%	Las configuraciones recurrentes de $c(K(2))=\mathcal{C}_3(2,1,1)$ son $(2,0)$, $(2,1)$, $(2,2)$, $(1,2)$ y $(0,2)$.
+%	
+%	\begin{figure}[h]
+%		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
+%			\begin{tikzpicture}[scale=.9]
+%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+%	 			\draw (0:1) node[draw, circle, fill=black] (v1) {};
+%	 			\draw (0:1.3) node {\small $s$};
+% 				\draw (120:1) node[draw, circle] (v2) {\small $2$};
+% 				\draw (240:1) node[draw, circle] (v3) {\small $1$};
+% 				\draw (120:1)+(-1,0) node[draw, circle] (v4) {\small $2$};
+% 				\draw (240:1)+(-1,0) node[draw, circle] (v5) {\small $1$};
+% 				\draw (v1) to (v2);
+%	 			\draw (v1) to (v3);
+%	 			\draw (v3) to (v4);
+% 				\draw (v5) to (v2);
+% 				\draw (v2) to (v3);
+% 				\draw (v4) to (v5);
+% 				\draw (v4) .. controls (-.5,2) and (.5,1) .. (v1);
+% 				\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v1);
+%			\end{tikzpicture}
+%			&
+%			\begin{tikzpicture}[scale=.9]
+%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
+%	 			\draw (0,0)+(0,1.6) node {\small $\bf \longleftarrow$};
+%	 			\draw (0,.4)+(0,1.6) node {\small $\bf \widetilde{f}$};
+%			\end{tikzpicture}
+%			&
+%			\begin{tikzpicture}[scale=.9]
+%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
+% 				\draw (0:1)+(0,1.1) node[draw, circle, fill=black] (v1) {};
+% 				\draw (0:1.3)+(0,1.1) node {\small $t$};
+% 				\draw (120:1)+(0,1.1) node[draw, circle] (v2) {\small $2$};
+% 				\draw (240:1)+(0,1.1) node[draw, circle] (v3) {\small $1$};
+% 				\draw (v1) to (v2);
+% 				\draw (v2) to [bend right] (v3);
+% 				\draw (v2) to [bend left] (v3);
+% 				\draw (v1) to (v3);
+%			\end{tikzpicture}
+%			\\
+%			$c(C_4)$
+%			&
+%			&
+%			$c(K(2))$
+%		\end{tabular}
+%	\end{figure}
+%	\end{block}
+%
+%\end{frame}
+%
+%
+%\begin{frame}
+%
+%	\begin{block}{Teorema}
+%		Sea $d$ un número natural, entonces el grupo de pilas de arena del cono del hipercubo $c(Q_d)$ está dado por:
+%		\[
+%			K(c(Q_d))\cong \bigoplus_{i=1}^{d} {\mathbb Z}_{2i+1}^{\binom{d}{i}}={\mathbb Z}_3^{d} \oplus {\mathbb Z}_5^{\binom{d}{2}} \oplus \cdots \oplus {\mathbb Z}_{2d-1}^{d} \oplus {\mathbb Z}_{2d+1}.
+%		\]
+%	\end{block}
+%
+%\end{frame}
 
 
 \begin{frame}
