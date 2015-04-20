@@ -908,22 +908,22 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 	\vspace{.5cm}
 	Más aún, existen varias formas equivalentes de definirlo.\\
 	\vspace{.5cm}
-	La descripción algebraica del grupo de pilas de arena también es conocida como el grupo crítico.\\
+	La descripción algebraica del grupo de pilas de arena también es conocida como el grupo crítico.
 	
-	\vspace{.5cm}
-
-	El \redalert{grupo crítico} de $G$, denotado por $K(G)$, está definido como la parte de torción del cokernel de la matriz Laplaciana de $G$.
-	\[
-		K(G)=cokernel(L(G))=\mathbb{Z}^{n-1}/L(G,s)^{t},
-	\]
-	donde $L(G,s)$ es la matriz Laplaciana reducida.
 \end{frame}
 
 
 \begin{frame}
 
+	\begin{block}{Definición}
+		El \redalert{grupo crítico $K(G)$}  de $G$ está definido como la parte de torción del cokernel de la matriz Laplaciana de $G$.
+		\[
+			coker(L(G))= \mathbb{Z}^{n}/L(G) = \mathbb{Z}\oplus \alert{K(G)}.
+		\]
+	\end{block}
+
 	\begin{block}{Proposición}
-		Para toda gráfica $G$ el grupo de pilas de arena $SP(G,s)\cong K(G)$ para todo $s\in V(G)$.
+		Para toda gráfica $G$, y todo $s\in V(G)$, tenemos \[SP(G,s)\cong K(G).\]
 	\end{block}
 	{\tiny (relación matriz laplaciana)}
 
