@@ -495,7 +495,7 @@
 	\end{block}
 	
 	\begin{block}{Teorema}
-		Toda configuración $h$ entre alguna $h_{min}$ y $\sigma_{max}$ es recurrente.
+		Toda configuración entre alguna configuración recurrente minimal y $\sigma_{max}$ es recurrente.
 	\end{block}
 	
 \end{frame}
@@ -503,29 +503,32 @@
 
 \begin{frame}
 	
-	\begin{block}{Ejemplo}
-		Consideremos las configuraciones recurrentes de $K_4$.
+	\begin{block}{Proposición [Cori y Rossin]}
+		Las configuariones recurrentes minimales de $K_n$ son permutaciones de $(n-2,...,1,0)$.
+	\end{block}
+	
+	\begin{Lemma}
+		La configuración $(n-2, ..., n-2)$ es la identidad en $SP(K_n,s)$.
+	\end{Lemma}
 		
 		\begin{center}
 			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi}
 		\end{center}
-		
-	\end{block}
 
 \end{frame}
 
 
-\begin{frame}
-	
-	\begin{block}{Ejemplo}
-		Consideremos las configuraciones recurrentes de $K_4$.
-		
-		\begin{center}
-			\includegraphics[height=4cm]{Img0.pdf}
-		\end{center}
-	\end{block}
-
-\end{frame}
+%\begin{frame}
+%	
+%	\begin{block}{Ejemplo}
+%		Consideremos las configuraciones recurrentes de $K_4$.
+%		
+%		\begin{center}
+%			\includegraphics[height=4cm]{Img0.pdf}
+%		\end{center}
+%	\end{block}
+%
+%\end{frame}
 
 
 \begin{frame}
@@ -612,6 +615,30 @@
 \end{frame}
 
 
+\begin{frame}
+	
+	{\bf ¿Cuántas configuraciones recurrentes hay?}
+	
+	\begin{block}{Definición}
+		Sea $G$ una gráfica.
+		Una subgráfica \alert{generadora} es una subgráfica $G'$ de $G$ con $V(G')=V(G)$.
+	\end{block}
+	
+	\begin{block}{Teorema matriz-árbol}
+		El número de árboles generadores de una gráfica $G$ es igual a cualquier menor $n-1\times n-1$ de $L(G)$. 
+	\end{block}
+
+	El \redalert{número de configuraciones recurrentes} es igual al \redalert{número de árboles generadores.}
+
+	\begin{block}{Teorema}
+		\[
+			\tau(G) = |SP(G)|
+		\]
+	\end{block}
+
+\end{frame}
+
+
 \begin{frame}	
 
 	\begin{block}{Definición}
@@ -672,24 +699,6 @@
 %	\end{columns}
 %
 %\end{frame}
-
-
-\begin{frame}
-	
-	{\bf ¿Cuántas configuraciones recurrentes hay?}
-	
-	\begin{block}{Definición}
-		Sea $G$ una gráfica.
-		Una subgráfica \alert{generadora} es una subgráfica $G'$ de $G$ con $V(G')=V(G)$.
-	\end{block}
-	
-	\begin{block}{Teorema matriz árbol}
-		El número de árboles generadores de una gráfica $G$ es igual a cualquier menor $n-1\times n-1$ de $L(G)$. 
-	\end{block}
-
-	El \redalert{número de configuraciones recurrentes} es igual al \redalert{número de árboles generadores.}
-
-\end{frame}
 
 
 \begin{frame}
@@ -918,7 +927,7 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 	\begin{block}{Definición}
 		El \redalert{grupo crítico $K(G)$}  de $G$ está definido como la parte de torción del cokernel de la matriz Laplaciana de $G$.
 		\[
-			coker(L(G))= \mathbb{Z}^{n}/L(G) = \mathbb{Z}\oplus \alert{K(G)}.
+			coker(L(G))= \mathbb{Z}^{n}/{\sf Im}L(G) = \mathbb{Z}\oplus \alert{K(G)}.
 		\]
 	\end{block}
 
@@ -930,14 +939,37 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 \end{frame}
 
 
+\subsection{Factores invariantes}
+
+
 \begin{frame}
 
-	\Titulo{¿Cómo calcular el grupo de pilas de arena?}
+	\frametitle{¿Cómo calcular el grupo de pilas de arena?}
 
 	\begin{enumerate}
 		\item El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana reducida.
 	\end{enumerate}
 	
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{block}{Teorema}
+		\[
+			K(G)\cong \mathbb{Z}_{d_1} \oplus \mathbb{Z}_{d_2} \oplus \cdots \oplus \mathbb{Z}_{d_r},
+		\]
+		donde $d_i> 0$ y $d_i \mid d_j$ si $i\leq j$.
+	\end{block}
+	
+	\begin{block}{Definición}
+		Los enteros $d_1, \dots, d_r$ son llamados \redalert{factores invariantes}.
+	\end{block}
+	
+	\begin{block}{Proposición}
+		$d_i=\Delta_i/ \Delta_{i-1}$, donde $\Delta_0=1$ y $\Delta_i$ es el gcd de los $i\times i$ menores de $L(G)$.
+	\end{block}
+
 \end{frame}
 
 
@@ -976,38 +1008,12 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 \end{frame}
 
 
+\subsection{El grupo crítico del ciclo gordo}
 
 
 \begin{frame}
 
-	\Titulo{¿Cómo calcular el grupo de pilas de arena?}
-
-	\begin{enumerate}
-		\item El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana reducida.
-		\item El grupo de pilas de arena se necesita calcular la configuración de desbordado (burning algorithm) y calcular combinatoriamente las configuraciones recurrentes.
-	\end{enumerate}
-	
-\end{frame}
-
-
-
-\begin{frame}
-
-	\Titulo{Gráficas con conectividad uno.}
-	
-	\begin{block}{Teorema}
-		Sea $G$ una gráfica y sean $G_1$, $G_2$, ..., $G_l$ sus bloques, entonces
-		\[
-			K(G)=K(G_1)\oplus K(G_2) \oplus \cdots \oplus K(G_l).
-		\]
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\Titulo{El grupo de pilas de arena del ciclo gordo.}
+	\frametitle{El grupo crítico del ciclo gordo}
 
 	El ciclo gordo $\mathcal{C}_n$ es la gráfica cuya gráfica subyacente es un ciclo.
 
@@ -1126,10 +1132,28 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 \end{frame}
 
 
+\subsection{Gráficas con conectividad uno.}
+
+
 \begin{frame}
 
-	\Titulo{Dado un grupo fínito abeliano $\Gamma$}
-	\Titulo{¿Existe una gráfica $G$ tal que $K(G)=\Gamma$?}
+	\frametitle{Gráficas con conectividad uno.}
+	
+	\begin{block}{Teorema}
+		Sea $G$ una gráfica y sean $G_1$, $G_2$, ..., $G_l$ sus bloques, entonces
+		\[
+			K(G)=K(G_1)\oplus K(G_2) \oplus \cdots \oplus K(G_l).
+		\]
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{block}{Pregunta}
+		Dado un grupo fínito abeliano $\Gamma$. ¿Existe una gráfica $G$ tal que $K(G)=\Gamma$?
+	\end{block}
 
 	Sí, basta tomar a $G$ como un wedge de ciclos.
 	
@@ -1374,42 +1398,43 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 %\end{frame}
 
 
-\begin{frame}
-	\Titulo{La Familia $\mathcal G_i$}
-	
-	Un resultado clásico (ver [Jacobson,1985]) es que
-	\[
-		K(G)\cong \mathbb{Z}_{d_1} \oplus \mathbb{Z}_{d_2} \oplus \cdots \mathbb{Z}_{d_r},
-	\]
-	donde $d_i> 0$ y $d_i \mid d_j$ si $i\leq j$.\\
-	Los enteros $d_1, \dots, d_r$ son llamados \redalert{factores invariantes}.\\
-	Más aún, $d_i=\Delta_i/ \Delta_{i-1}$, donde $\Delta_0=1$ y $\Delta_i$ es el gcd de los $i\times i$ menores de $L(G)$. 
 
-\end{frame}
+\subsection{La Familia $\mathcal G_i$}
 
 
 \begin{frame}
+	\frametitle{La Familia $\mathcal G_i$}
 	
-	Denotemos por:
-	\begin{itemize}
-		\item $\redalert{f_i(G)}$, el número de factores invariantes iguales a $i$ de $K(G)$ y
-		\item $\redalert{f_{\geq 2}(G)}$ al número de factores invariantes mayores a 2 de $K(G)$.
-	\end{itemize}
+	\begin{block}{}
+		Denotemos por:
+		\begin{itemize}
+			\item $\redalert{f_i(G)}$, el número de factores invariantes iguales a $i$ de $K(G)$,
+			\item $\redalert{f_{\geq 2}(G)}$ al número de factores invariantes mayores a 2 de $K(G)$.
+		\end{itemize}
+	\end{block}
 	
-	Se sabe (ver [Godsil, 2001]) que 
+	\begin{block}{Teorema [Godsil, 2001]}
 	\[
 		f_1(G)+f_{\geq 2}(G)=n-c,
 	\]
 	donde $c$ es el número de componentes conexas.
+	\end{block}
 	
-	\begin{block}{Definición}
-		Denotemos por $\redalert{\mathcal G_i}$ a la familia de gráficas \redalert{ simples conexas} con $\redalert{f_1(G)=i}$.
+	\begin{block}{Corolario}
+		Una gráfica simple conexa cumple
+		\[
+		1\leq f_1(G) \text{     y     }  f_{\geq 2}(G)\leq n-2.
+		\]
 	\end{block}
 	
 \end{frame}
 
 
 \begin{frame}
+	
+	\begin{block}{Definición}
+		Denotemos por $\redalert{\mathcal G_i}$ a la familia de gráficas \redalert{ simples conexas} con $\redalert{f_1(G)=i}$.
+	\end{block}
 	
 	\begin{block}{Ejemplo}
 		Por ejemplo, la siguiente gráfica pertenece a $\redalert{\mathcal G_2}$.
@@ -1449,29 +1474,58 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 				&\\
 			\end{tabular}
 		\end{center}
+	\end{block} 
+	
+\end{frame}
+
+
+\begin{frame}
+	\begin{figure}
+		\includegraphics[height=6cm]{InvariantFactors.pdf}
+		\caption{Número normalizado de graficas con $f_1$ factores invariantes iguales a 1 }
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\begin{block}{Pregunta}
+		¿Qué tan frecuente es cíclico el grupo crítico? es decir, ¿Qué tan frecuente $f_1(G)$ es igual a $n-1$ o $n-2$?
 	\end{block}
 	
-	Una gráfica simple conexa cumple
-	\[
-	1\leq f_1(G) \text{     y     }  f_{\geq 2}(G)\leq n-2.
-	\] 
+	\begin{block}{Conjetura [D. Wagner, 2001]}
+		Casi todas las gráficas simples y conexas tienen grupo crítico ciclico.
+	\end{block}
 	
+	\begin{block}{Teorema [M. Wood, 2014]}
+		La probabilidad de que el grupo crítico de una gráfica aleatoria sea cíclica es asintóticamente a lo más 
+		\[
+			\zeta(3)^{-1}\zeta(5)^{-1}\zeta(7)^{-1}\zeta(9)^{-1}\zeta(11)^{-1} \cdots \approx 0.7935212
+		\]
+		donde $\zeta$ es la función zeta de Riemann.
+	\end{block}
 \end{frame}
 
 
 \begin{frame}	
 	
-	\begin{block}{Observación}
-		El conjunto $\mathcal G_i$ no es cerrado bajo subgráficas inducidas.\\
-		Por ejemplo, el cono de $S_3$ pertenece a $\mathcal G_2$, pero $S_3$ pertenece a $\mathcal G_3$.\\
-		También, la gráfica $K_6\setminus M_2$ pertenece a $\mathcal G_3$, y $K_5\setminus M_2$ pertenece a $\mathcal G_2$.
+	\frametitle{Gráficas con un factor invariante igual a 1}
+	
+	Por otro lado...
+	
+	\begin{block}{Pregunta}
+		¿Qué podemos decir sobre $\mathcal G_1$?
 	\end{block}
+%	\begin{block}{Observación}
+%		El conjunto $\mathcal G_i$ no es cerrado bajo subgráficas inducidas.\\
+%		Por ejemplo, el cono de $S_3$ pertenece a $\mathcal G_2$, pero $S_3$ pertenece a $\mathcal G_3$.\\
+%		También, la gráfica $K_6\setminus M_2$ pertenece a $\mathcal G_3$, y $K_5\setminus M_2$ pertenece a $\mathcal G_2$.
+%	\end{block}
 	
 	\begin{block}{Teorema [Lorenzini, 1989]}
 		Si $G$ es una gráfica \redalert{simple conexa}, entonces los siguientes enunciados son equivalentes:
 		\begin{enumerate}[i.]
 			\item $G \in \mathcal{G}_1$,
-			\item $G$ es $P_2$-free,
+			\item $G$ es $P_2$-libre,
 			\item $G$ es la gráfica completa.
 		\end{enumerate}
 	\end{block}
@@ -1480,13 +1534,17 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 
 
 \begin{frame}
+
+	\begin{block}{Pregunta}
+		¿Qué podemos decir sobre $\mathcal G_2$ y $\mathcal G_3$?
+	\end{block}
 	
 	\begin{block}{Teorema}
 		Sea $G$ una gráfica \redalert{simple conexa}.
 		Entonces, $G\in \mathcal{G}_2$ si y solamente si $G$ es una de las siguientes gráficas:
 		\begin{enumerate}[i.]
-			\item $K_{n_1,n_2,n_3}$, donde $n_1$, $n_2$ y $n_3$ son o pares o impares.
-			\item $L_{n_1,n_2,n_3}$, si $n_1, n_2, n_3 \geq 3$ y son pares o impares, u otros once casos.
+			\item $K_{n_1,n_2,n_3}$, donde $n_1$, $n_2$ y $n_3$ tienen la misma paridad.
+			\item $L_{n_1,n_2,n_3}$, si $n_1, n_2, n_3 \geq 3$ tienen la misma paridad, u otros once casos.
 			\[
 				\begin{tikzpicture}[scale=3]
 					\draw[draw=black!40, line width=15pt] (-.5,0) -- (0,0);
@@ -1498,6 +1556,8 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 			\]
 		\end{enumerate}
 	\end{block}
+	
+	La demostración usa los ideales críticos.
 \end{frame}
 
 
