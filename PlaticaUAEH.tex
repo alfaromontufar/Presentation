@@ -428,7 +428,7 @@
 	\end{block}
 
 	\begin{block}{Definición}
-		El \alert{grupo de pilas de arena} $SP(G,s)$ de $G$ es el conjunto de configuraciones recurrentes.
+		El \alert{grupo de pilas de arena} $SP(G,s)$ de $G$ es el conjunto de configuraciones recurrentes de (G,s) junto con la operación $\oplus$.
 	\end{block}
 
 \end{frame}
@@ -484,7 +484,7 @@
 	\end{tabular}
 	\end{figure}
 	
-	\hspace{4cm} $K(G)=\mathbb{Z}_5$
+	\hspace{4cm} $SP(G)=\mathbb{Z}_5$
 		
 \end{frame}
 
@@ -500,9 +500,13 @@
 		Sea \alert{$\sigma_{max}$} la configuración $(\deg_G(v_1)-1,...,\deg_G(v_{n-1})-1)$.
 	\end{block}
 	
+	\pause
+	
 	\begin{block}{Definición}
 		Una configuración recurrente $h$ es \alert{minimal} si no existe una configuración recurrente $h'\neq h$ tal que $h'\leq h$.
 	\end{block}
+	
+	\pause
 	
 	\begin{block}{Teorema}
 		Toda configuración entre alguna configuración recurrente minimal y $\sigma_{max}$ es recurrente.
@@ -522,7 +526,7 @@
 	\end{Lemma}
 		
 		\begin{center}
-			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi}
+			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi} \hspace{4cm} $SP(K_4,s)$
 		\end{center}
 
 \end{frame}
