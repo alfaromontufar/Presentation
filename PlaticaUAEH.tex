@@ -526,7 +526,7 @@
 	\end{Lemma}
 		
 		\begin{center}
-			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi} \hspace{4cm} $SP(K_4,s)$
+			\movie[width=4cm,height=4cm,poster,autostart]{}{prueba.avi}
 		\end{center}
 
 \end{frame}
@@ -660,8 +660,7 @@
 	\frametitle{GPA y polinomio de Tutte}
 	
 	\begin{block}{Definición}
-		Sea $G$ una gráfica.
-		El polinomio de Tutte de $G$ es el polinomio $T(G;x,y) \in \mathbb{Z}[x,y]$ definido como sigue:
+		El polinomio de Tutte de la gráfica $G$ es el polinomio $T(G;x,y) \in \mathbb{Z}[x,y]$ definido recursivamente como sigue:
 		\[\small
 			T(G;x,y)=
 			\begin{cases}
@@ -721,11 +720,12 @@
 
 \begin{frame}
 
-
-	Dada una configuración $c$, definimos 
-	\[
-		nivel(c)=\sum_{v} c_v.
-	\]
+	\begin{block}{Definicion}
+		Dada una configuración $c$, definimos 
+		\[
+			\alert{nivel(c)}=\sum_{v} c_v.
+		\]
+	\end{block}
 	
 	\begin{block}{Teorema}
 		Sea $G=(V,E)$ una gráfica con sumidero $s$ y $c$ una configuración recurrente, entonces
@@ -814,13 +814,15 @@
 
 \begin{frame}	
 
-	Para $i\geq 0$, tomemos \redalert{$n_i$} como el número de configuraciones críticas con nivel \redalert{$i+|E|-\deg(s)$.}
+	\begin{block}{Definición}
+		Para $i\geq 0$, tomemos \redalert{$n_i$} como el número de configuraciones críticas con nivel \redalert{$i+|E|-\deg(s)$.}\\
 	
-	La \redalert{función generadora} de las configuraciones críticas es el polinomio
-	\[
-		P(G;y)=\sum_{i=0}^{|E|-|V|+1} n_i y^i
-	\]
-
+		La \redalert{función generadora} de las configuraciones críticas es el polinomio
+		\[
+			P(G;y)=\sum_{i=0}^{|E|-|V|+1} n_i y^i
+		\]
+	\end{block}
+	
 \end{frame}
 
 
@@ -966,12 +968,22 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 
 	El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana.
 	
+	\pause
+	
 	\begin{block}{Definición}
 		Dos matrices $M$ y $N$ son \alert{equivalentes} si existen $P,Q\in GL_n(\mathbb{Z})$ tal que $N=PMQ$.  
 	\end{block}
 	
+	\pause
+	
 	\begin{block}{Teorema}
 		Si $M$ y $N$ son equivalentes, entonces $\mathbb{Z}^{n}/M \cong \mathbb{Z}^{n}/N$.
+	\end{block}
+	
+	\pause
+	
+	\begin{block}{Definición}
+		La \alert{forma normal de Smith} de una matriz $M$ es la matriz diagonal \alert{${\sf diag}(d_1, ..., d_r)$}, equivalente a $A$, que satisface $d_i> 0$ y $d_i \mid d_j$ si $i\leq j$.
 	\end{block}
 	
 \end{frame}
