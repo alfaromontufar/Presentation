@@ -228,7 +228,7 @@
 	\begin{block}{Definiciones}
 	Sea $\bf a$ una configuración de $G$.
 		\begin{itemize}
-			\item El vértice $v$ es \alert{estable} si $a_v<deg_G(v)$.
+			\item El vértice $v$ es \alert{estable} si ${\bf a}_v<deg_G(v)$.
 			\item Una configuración es \alert{estable} si todos los vértices no sumidero son estables.
 		\end{itemize}
 	\end{block}
@@ -266,7 +266,7 @@
 
 	\begin{block}{Regla del desbordamiento}
 		Sea $G=(V,E)$ una multigráfica y sea ${\bf a}$ una configuración.
-		Si algún vértice $v$ es tal que $deg_G(v)\leq a_v$, entonces \alert{desbordaremos} el vértice $v$ al restar $deg_G(v)$ a $a_v$ y a cada vecino $u$ de $v$ sumamos $m_{v,u}$.
+		Si algún vértice $v$ es tal que $deg_G(v)\leq {\bf a}_v$, entonces \alert{desbordaremos} el vértice $v$ al restar $deg_G(v)$ a ${\bf a}_v$ y a cada vecino $u$ de $v$ sumamos \alert{$m_{v,u}$}.
 	\end{block}
 
 	\begin{figure}
@@ -362,7 +362,7 @@
 \begin{frame}
 
 	\begin{block}{Definición}
-		Una configuración $u$ es \alert{recurrente} si existe una configuración \redalert{no cero} $v$ tal que $s(u+v)=u$.
+		Una configuración ${\bf u}$ es \alert{recurrente} si existe una configuración \redalert{no cero} ${\bf v}$ tal que $s({\bf u}+{\bf v})=u$.
 	\end{block}
 	
 	\begin{figure}
@@ -567,14 +567,14 @@
 \end{frame}
 
 
-\subsection{GPA, polinomio de Tutte y la matriz Laplaciana}
+\subsection{GPA y la matriz Laplaciana}
 
  
 \begin{frame}
-	\frametitle{GPA, polinomio de Tutte y la matriz Laplaciana}
+	\frametitle{GPA y la matriz Laplaciana}
 	
 	\begin{block}{Definición}
-	La \alert{matríz Laplaciana} es la matriz (con las filas y columnas indexadas con los vértices de $G$), tal que la entrada $uv$ esta definida por
+	La \alert{matriz Laplaciana} es la matriz (con las filas y columnas indexadas con los vértices de $G$) tal que la entrada $uv$ esta definida por
 	\[
 		L(G)_{u,v}=
 		\begin{cases}
@@ -645,8 +645,12 @@
 \end{frame}
 
 
-\begin{frame}	
+\subsection{GPA y polinomio de Tutte}
 
+
+\begin{frame}	
+	\frametitle{GPA y polinomio de Tutte}
+	
 	\begin{block}{Definición}
 		Sea $G$ una gráfica.
 		El polinomio de Tutte de $G$ es el polinomio $T(G;x,y) \in \mathbb{Z}[x,y]$ definido como sigue:
@@ -716,7 +720,7 @@
 	\]
 	
 	\begin{block}{Teorema}
-		Sea $G=(V,E)$ una gráfica con sink $s$ y $c$ una configuración recurrente, entonces
+		Sea $G=(V,E)$ una gráfica con sumidero $s$ y $c$ una configuración recurrente, entonces
 		\[
 			| E |-\deg_G (s)  \leq \redalert{nivel(c)} \leq 2| E |-\deg_G (s)-|V|+1
 		\]
@@ -815,7 +819,7 @@
 \begin{frame}
 
 	\begin{block}{Teorema [Merino,1997]}
-		La {\bf función generadora} de las configuraciones recurrentes es el {\bf polinomio de Tutte} a lo largo de la linea $x=1$,
+		La \alert{función generadora} de las configuraciones recurrentes es el \alert{polinomio de Tutte} a lo largo de la linea $x=1$,
 		\[
 			P(G,y)=T(G;1,y).
 		\]
@@ -952,9 +956,15 @@ entonces $L(G,s)^t{\bf x}^* \in SP(G,s)$ es la identidad de $SP(G,s)$.
 
 	\frametitle{¿Cómo calcular el grupo de pilas de arena?}
 
-	\begin{enumerate}
-		\item El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana reducida.
-	\end{enumerate}
+	El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana.
+	
+	\begin{block}{Definición}
+		Dos matrices $M$ y $N$ son \alert{equivalentes} si existen $P,Q\in GL_n(\mathbb{Z})$ tal que $N=PMQ$.  
+	\end{block}
+	
+	\begin{block}{Teorema}
+		Si $M$ y $N$ son equivalentes, entonces $\mathbb{Z}^{n}/M \cong \mathbb{Z}^{n}/N$.
+	\end{block}
 	
 \end{frame}
 
