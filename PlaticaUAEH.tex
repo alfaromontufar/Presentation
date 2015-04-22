@@ -146,8 +146,8 @@
 	El conjunto de los \alert{vértices no sumidero} son denotados por \alert{$\widetilde{V}$}.
 
 	\begin{block}{Definición}
-		Sea $G=(V,E)$ una gráfica. 
-		Una \alert{configuración} de $G$ es una asignación de enteros \alert{no negativos} a los vértices no sumidero de $G$.
+		Sea $G=(V,E)$ una gráfica y $s\in V$. 
+		Una \alert{configuración} de $(G,s)$ es una asignación de enteros \alert{no negativos} a los vértices no sumidero de $G$.
 	\end{block}
 
 	\begin{figure}
@@ -226,10 +226,10 @@
 \begin{frame}
 
 	\begin{block}{Definiciones}
-	Sea $\bf a$ una configuración de $G$.
+	Sea $\bf a$ una configuración de $(G,s)$.
 		\begin{itemize}
 			\item El vértice $v$ es \alert{estable} si ${\bf a}_v<deg_G(v)$.
-			\item Una configuración es \alert{estable} si todos los vértices no sumidero son estables.
+			\item<2> Una configuración es \alert{estable} si todos los vértices no sumidero son estables.
 		\end{itemize}
 	\end{block}
 	
@@ -265,8 +265,12 @@
 \begin{frame}
 
 	\begin{block}{Regla del desbordamiento}
-		Sea $G=(V,E)$ una multigráfica y sea ${\bf a}$ una configuración.
-		Si algún vértice $v$ es tal que $deg_G(v)\leq {\bf a}_v$, entonces \alert{desbordaremos} el vértice $v$ al restar $deg_G(v)$ a ${\bf a}_v$ y a cada vecino $u$ de $v$ sumamos \alert{$m_{v,u}$}.
+		Sea ${\bf a}$ una configuración de $(G,s)$.
+		Si un vértice $v$ satisface que \alert{$deg_G(v)\leq {\bf a}_v$}, entonces $v$ puede \alert{desbordarce}, es decir:
+		\begin{itemize}
+			\item restar $deg_G(v)$ a ${\bf a}_v$ y
+			\item a cada vecino $u$ de $v$ sumamos \alert{$m_{v,u}$}.
+		\end{itemize}
 	\end{block}
 
 	\begin{figure}
