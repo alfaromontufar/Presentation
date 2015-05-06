@@ -56,7 +56,7 @@
 \end{frame}
 
 
-\section{Assumptions on graphs}
+\section{Assumptions}
 \subsection*{S}
 
 \begin{frame}
@@ -102,557 +102,89 @@
 \end{frame}
 
 
-\section{Grupo Crítico}
+\section{Critical group}
 
 
-\subsection*{}
+\subsection*{Laplacian matrix}
 
 
 \begin{frame}
 	
-	\frametitle{Grupo Crítico}
+	\frametitle{Laplacian Matrix}
 	
-	En la literatura el grupo de pilas de arena tambien es conocido como el grupo crítico, el grupo Jacobiano, el grupo de Picard, etc.\\
-	\vspace{.5cm}
-	Más aún, existen varias formas equivalentes de definirlo.\\
-	\vspace{.5cm}
-	La descripción algebraica del grupo de pilas de arena también es conocida como el grupo crítico.
+	\begin{block}{Definition}
+		Let $G=(V,E)$ be a graph, the \alert{Laplacian matrix} $L(G)$ of $G$ is the matrix with rows and columns indexed by the vertices of $G$ given by
+	\[
+	L(G)_{u v}=
+	\begin{cases}
+	\deg_G(u) & \text{ if } u=v,\\
+	-m_{u v} & \text{ otherwise},
+	\end{cases}
+	\]
+	where \alert{$\deg_G(u)$} denote the degree of $u$, and \alert{$m_{u v}$} denote the number of edges from $u$ to $v$.
+	\end{block}
 	
 \end{frame}
 
 
 \begin{frame}
 
-	\begin{block}{Definición}
-		El \redalert{grupo crítico $K(G)$}  de $G$ está definido como la parte de torción del cokernel de la matriz Laplaciana de $G$.
+	\begin{block}{Definition}
+		By considering $L(G)$ as a linear operator on $\mathbb Z^n$, the \alert{critical group} $K(G)$ of $G$ is the torsion part of the cokernel of $L(G)$.
 		\[
 			coker(L(G))= \mathbb{Z}^{n}/{\sf Im}L(G) = \mathbb{Z}\oplus \alert{K(G)}.
 		\]
 	\end{block}
 
-	\begin{block}{Proposición}
-		Para toda gráfica $G$, y todo $s\in V(G)$, tenemos \[SP(G,s)\cong K(G).\]
-	\end{block}
-	{\tiny (relación matriz laplaciana)}
-
 \end{frame}
 
 
-\subsection{Factores invariantes}
+\subsection{Invariant factors}
 
 
 \begin{frame}
 
-	\frametitle{¿Cómo calcular el grupo de pilas de arena?}
-
-	El grupo crítico se puede obtener calculando la \redalert{forma normal de Smith} de la matriz Laplaciana.
+	\frametitle{Invarian factors}	
 	
-	\pause
-	
-	\begin{block}{Definición}
-		Dos matrices $M$ y $N$ son \alert{equivalentes} si existen $P,Q\in GL_n(\mathbb{Z})$ tal que $N=PMQ$.  
+	\begin{block}{Theorem}
+		\[
+			K(G) \cong \mathbb{Z}_{\alert{f_1}} \oplus \mathbb{Z}_{\alert{f_2}} \oplus \cdots \oplus\mathbb{Z}_{\alert{f_{n-1}}},
+		\]
+		where \alert{$f_i \leq 0$} and  \alert{$f_i \mid f_j$} for all \alert{$i\leq j$}.
 	\end{block}
 	
 	\pause
 	
-	\begin{block}{Teorema}
-		Si $M$ y $N$ son equivalentes, entonces $\mathbb{Z}^{n}/M \cong \mathbb{Z}^{n}/N$.
-	\end{block}
+	The \alert{$f_1, f_2, ..., f_{n-1}$} are called \alert{invariant factors}.
 	
 	\pause
 	
-	\begin{block}{Definición}
-		La \alert{forma normal de Smith} de una matriz $M$ es la matriz diagonal \alert{${\sf diag}(d_1, ..., d_r)$}, equivalente a $A$, que satisface $d_i> 0$ y $d_i \mid d_j$ si $i\leq j$.
+	\begin{block}{Proposition}
+		If \alert{$\Delta_i(G)$} is the g.c.d of the $i$-minors of $L(G)$, then \alert{$f_i$} is equal to $\Delta_i(G)/ \Delta_{i-1}(G)$, where $\Delta_0(G)=1$.  
 	\end{block}
 	
 \end{frame}
 
+\subsection{The family $\mathcal G_i$}
+
 
 \begin{frame}
+	\frametitle{The family $\mathcal G_i$}
 	
-	\begin{block}{Teorema}
-		\[
-			K(G)\cong \mathbb{Z}_{d_1} \oplus \mathbb{Z}_{d_2} \oplus \cdots \oplus \mathbb{Z}_{d_r},
-		\]
-		donde $d_i> 0$ y $d_i \mid d_j$ si $i\leq j$.
-	\end{block}
-	
-	\begin{block}{Definición}
-		Los enteros $d_1, \dots, d_r$ son llamados \redalert{factores invariantes}.
+	\begin{block}{Definition}
+		Let \alert{$f_1(G)$} be the number of invariant factors of $L(G)$ equal to $1$.
 	\end{block}
 	
-	\begin{block}{Proposición}
-		$d_i=\Delta_i/ \Delta_{i-1}$, donde $\Delta_0=1$ y $\Delta_i$ es el gcd de los $i\times i$ menores de $L(G)$.
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Teorema [Cori y Rossin 2001]}
-	Si $K_n$ es la gráfica completa de $n$ vértices. 
-	Entonces
-	\[
-		K(K_n)\cong \bigoplus_{i=1}^{n-2} \mathbb{Z}_n.
-	\]
-	\end{block}
-	\begin{proof}
-		\[
-			L(K_n,s)=
-			\left[
-			\begin{array}{cccc}
-				n-1 & -1  & \cdots & -1 \\
-				-1  & n-1 & \cdots & -1 \\
-				\vdots & \vdots & \ddots & \vdots \\
-				-1  &  -1 & \cdots & n-1 \\
-			\end{array}
-			\right]
-			\sim
-			\left[
-			\begin{array}{cccc}
-				1 & 0  & \cdots & 0 \\
-				0  & n & \cdots & 0 \\
-				\vdots & \vdots & \ddots & \vdots \\
-				0  & 0 & \cdots & n \\
-			\end{array}
-			\right]
-		\]
-	\end{proof}
-
-\end{frame}
-
-
-\subsection{El grupo crítico del ciclo gordo}
-
-
-\begin{frame}
-
-	\frametitle{El grupo crítico del ciclo gordo}
-
-	El ciclo gordo $\mathcal{C}_n$ es la gráfica cuya gráfica subyacente es un ciclo.
-
-	\begin{figure}[h]
-		\begin{tikzpicture}[scale=1.2]    
-		    \draw (0:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v1) {};
-	 		\draw (60:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v2) {};
-	 		\draw (120:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v3) {};
-	 		\draw (180:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v4) {};
-	 		\draw (240:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v5) {};
-	 		\draw (300:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v6) {};
-    
-		    \draw (0:1.4) node {$v_{n-1}$};
-	 		\draw (60:1.4) node {$v_n$};
-	 		\draw (120:1.4) node {$v_1$};
-	 		\draw (180:1.4) node {$v_2$};
-	 		\draw (240:1.4) node {$v_3$};
-	 		\draw (300:1.4) node {$v_{n-2}$};
-    
-		    \draw (30:1.5) node {$m_{n-1}$};
-	 		\draw (90:1.3) node {$m_n$};
-	 		\draw (150:1.4) node {$m_1$};
-	 		\draw (210:1.4) node {$m_2$};
-	 		\draw (330:1.5) node {$m_{n-2}$};
-    
-		    \foreach \x in {0, .1, .2}
-		    {
-		       \draw (v1) .. controls (30:\x+1) and (30:\x+1) .. (v2);
-		       \draw (v1) .. controls (30:\x+.5) and (30:\x+.5) .. (v2);
-		    }    
-		    \foreach \x in {.8, .85, .9}
-		    {
-		       \draw (30:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
-		    }
-		    \foreach \x in {0, .1, .2}
-		    {
-		       \draw (v2) .. controls (90:\x+1) and (90:\x+1) .. (v3);
-		       \draw (v2) .. controls (90:\x+.5) and (90:\x+.5) .. (v3);
-		    }    
-		    \foreach \x in {.8, .85, .9}
-		    {
-		       \draw (90:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
-		    }
-		    \foreach \x in {0, .1, .2}
-    		{
-		       \draw (v3) .. controls (150:\x+1) and (150:\x+1) .. (v4);
-		       \draw (v3) .. controls (150:\x+.5) and (150:\x+.5) .. (v4);
-		    }    
-		    \foreach \x in {.8, .85, .9}
-		    {
-		       \draw (150:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
-		    }
-		    \foreach \x in {0, .1, .2}
-		    {
-		       \draw (v4) .. controls (210:\x+1) and (210:\x+1) .. (v5);
-		       \draw (v4) .. controls (210:\x+.5) and (210:\x+.5) .. (v5);
-		    }    
-		    \foreach \x in {.8, .85, .9}
-		    {
-		       \draw (210:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
-		    }
-		    \foreach \x in {0, .1, .2}
-		    {
-		       \draw (v6) .. controls (330:\x+1) and (330:\x+1) .. (v1);
-		       \draw (v6) .. controls (330:\x+.5) and (330:\x+.5) .. (v1);
-		    }    
-		    \foreach \x in {.8, .85, .9}
-		    {
-		       \draw (330:\x) node[circle, draw, fill=black, inner sep=0pt, minimum width=1pt] {};
-		    }
-		    \foreach \x in {250,260,270,280,290}
-		    {
-		    	\draw (\x:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] {};
-		    }
-		\end{tikzpicture}
-		\caption{Ciclo gordo $\mathcal{C}_n$.}
-		\label{Cthickcicle}
-	\end{figure}
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Teorema}
-		Sea $\mathcal{C}_{n}$ el ciclo gordo con $m_i$ la multiplicidad entre $v_i$ y $v_{i+1}$, entonces 
-		\[
-			K(\mathcal{C}_{n})=\mathbb{Z}_{\Delta_1} \oplus \left(\bigoplus_{i=2}^{n-1} \mathbb{Z}_{\Delta_i/ \Delta_{i-1}}\right).
-	\]
-		con 
-		\[
-			\Delta_i=
-			\begin{cases}
-				\gcd\left\{m_{j_1} \cdots m_{j_i} \right\}_{1\leq j_1 < \cdots < j_i \leq n} & \text{si } 1 \leq i \leq n-2, \\
-				(-1)^{n} \sum_{i=1}^{n} m_1 m_2 \cdots \hat{m_i} \cdots m_n & \text{si } i=n-1. \\ 
-			\end{cases}
-		\]
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Corolario}
-		Sea $\mathcal{C}_{n}$ el ciclo gordo con $m_i=m$, entonces 
-		\[
-			K(\mathcal{C}_{n})=\left(\bigoplus_{i=1}^{n-2} \mathbb{Z}_m\right)\oplus\mathbb{Z}_{mn}.
-		\]
-	\end{block}
-
-
-	\begin{block}{Corolario}
-		El grupo de pilas de arena del ciclo de $n$ vertices es isomorfo a $\mathbb{Z}_n$.
-	\end{block}
-
-\end{frame}
-
-
-\subsection{Gráficas con conectividad uno.}
-
-
-\begin{frame}
-
-	\frametitle{Gráficas con conectividad uno.}
-	
-	\begin{block}{Teorema}
-		Sea $G$ una gráfica y sean $G_1$, $G_2$, ..., $G_l$ sus bloques, entonces
-		\[
-			K(G)=K(G_1)\oplus K(G_2) \oplus \cdots \oplus K(G_l).
-		\]
-	\end{block}
-
-\end{frame}
-
-
-\begin{frame}
-
-	\begin{block}{Pregunta}
-		Dado un grupo fínito abeliano $\Gamma$. ¿Existe una gráfica $G$ tal que $K(G)=\Gamma$?
-	\end{block}
-
-	Sí, basta tomar a $G$ como un wedge de ciclos.
-	
-	\begin{tabular}{c@{\extracolsep{1cm}}c}
-	
-		& \multirow{3}{*}{
-		\begin{tikzpicture}[scale=.5]    
-			\draw (0,0) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (s) {};
-			\draw (0:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v1) {};
-		 	\draw (51:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v2) {};
-			\draw (102:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v3) {};
-			\draw (153:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v4) {};
-		 	\draw (204:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v5) {};
-		 	\draw (255:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=5pt] (v6) {};
-			\draw (292:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] (v71) {};
-			\draw (306:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] (v72) {};
-			\draw (320:1) node[draw, circle, fill=black, inner sep=0pt, minimum width=1pt] (v73) {};
-			\foreach \x in {1,...,6}
-			{
-				\draw (s) -- (v\x);
-			}
-			\draw (v1) .. controls (0:3) and (51:3) .. node[above] {\small $a_2$} (v2);
-			\draw (v3) .. controls (102:3) and (153:3) .. node[above] {\small $a_1$} (v4);
-			\draw (v5) .. controls (204:3) and (255:3) .. node[left] {\small $a_r$} (v6);
-		\end{tikzpicture}
-		}
-		\\
-		&\\
+	\pause
 		
-		$\mathbb{Z}_{a_1}\oplus \mathbb{Z}_{a_2}\oplus \cdots \mathbb{Z}_{a_r}$
-		&\\
-	\end{tabular}
-	
-\end{frame}
-
-
-\begin{frame}
-	\Titulo{Algunos isomorfismos.}
-	
-	\begin{block}{Teorema [Cori y Rossin, 2000]}
-		Sea $G$ una gráfica y $G^*$ su dual, entonces $K(G)\cong K(G^*)$.
-	\end{block}
-
-	\begin{block}{Teorema [Wagner, 2000]}
-		Sean $G$ y $H$ gráficas. 
-		Si las matroides gráficas de $G$ y $H$ son isomorfas, entonces $K(G)\cong K(H)$.
+	\begin{block}{Definition}
+		Let $\alert{\mathcal G_i}$ be the family of \alert{simple connected} graphs con $\alert{f_1(G)=i}$.
 	\end{block}
 	
-\end{frame}
-
-
-%\begin{frame}
-%
-%	\Titulo{Homomorfismos y el grupo de pilas de arena.}
-%
-%	\begin{block}{Definición}
-%		Sean $G$ y $H$ gráficas.
-%		Un \alert{homomorfismo uniforme} de $G$ a $H$, denotado por $f: G\rightarrow H$, es una función $f:V(G)\rightarrow V(H)$ tal que para todos $x,y \in V(H)$ tenemos que
-%		\[
-%			d_{G[S_x\cup S_y]}(u)=m_{x,y} \text{ para todos } u \in S_x\cup S_y,
-%		\]
-%		donde $S_x=f^{-1}(x)$ y $S_y=f^{-1}(y)$.
-%	\end{block}
-%
-%\end{frame}
-%
-%
-%\begin{frame}
-%
-%	\begin{block}{Ejemplo: Homomorfismo uniforme.}
-%		\begin{figure}[h]
-%			\begin{tabular}{c@{\extracolsep{2cm}}c}
-%				\begin{tikzpicture}[scale=.9]
-%					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-%	 				\draw (0:1) node[draw, circle, fill=black] (v1) {};
-%	 				\draw (0:2) node[draw, circle, fill=black] (v11) {};
-%	 				\draw (0:3) node[draw, circle, fill=black] (v12) {};
-% 					\draw (120:1) node[draw, circle, fill=black] (v2) {};
-% 					\draw (240:1) node[draw, circle, fill=black] (v3) {};
-% 					\draw (120:1)+(-1,0) node[draw, circle, fill=black] (v4) {};
-% 					\draw (240:1)+(-1,0) node[draw, circle, fill=black] (v5) {};
-% 					\draw (120:1)+(-2,0) node[draw, circle, fill=black] (v6) {};
-% 					\draw (240:1)+(-2,0) node[draw, circle, fill=black] (v7) {};
-% 					\draw (v1) to (v2);
-% 					\draw (v2) to (v3);
-%		 			\draw (v1) to (v3);
-%	 				\draw (v3) to (v4);
-% 					\draw (v4) to (v7);
-% 					\draw (v7) to (v6);
-% 					\draw (v6) to (v5);
-% 					\draw (v5) to (v2);
-% 					\draw (v4) .. controls (-.5,2) and (.5,1) .. (v11);
-% 					\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v11);
-% 					\draw (v6) .. controls (-1.5,3) and (.5,2) .. (v12);
-% 					\draw (v7) .. controls (-1.5,-3) and (.5,-2) .. (v12);
-% 					\draw (0:1.4) node {$v_1$};
-% 					\draw (0:2.4) node {$v_8$};
-% 					\draw (0:3.4) node {$v_9$};
-% 					\draw (120:1)+(-.34,0) node {$v_2$};
-% 					\draw (240:1)+(-.34,0) node {$v_3$};
-% 					\draw (120:1)+(-1.34,0) node {$v_4$};
-% 					\draw (240:1)+(-1.34,0) node {$v_5$};
-% 					\draw (120:1)+(-2.34,0) node {$v_6$};
-% 					\draw (240:1)+(-2.34,0) node {$v_7$};
-%				\end{tikzpicture}
-%				&
-%				\begin{tikzpicture}[scale=.9]
-%					\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
-% 					\draw (0:1)+(0,1.8) node[draw, circle, fill=black] (v1) {};
-% 					\draw (120:1)+(0,1.8) node[draw, circle, fill=black] (v2) {};
-% 					\draw (240:1)+(0,1.8) node[draw, circle, fill=black] (v3) {};
-% 					\draw (v1) to (v2);
-% 					\draw (v2) to [bend right] (v3);
-% 					\draw (v2) to [bend left] (v3);
-% 					\draw (v1) to (v3);
-% 					\draw (0:1.4)+(0,1.8) node {$u_1$};
-% 					\draw (120:1.4)+(0,1.8) node {$u_2$};
-% 					\draw (240:1.4)+(0,1.8) node {$u_3$};
-%				\end{tikzpicture}
-%				\\
-%				$G$
-%				&
-%				$H$
-%			\end{tabular}
-%		\end{figure}
-%	\end{block}
-%
-%\end{frame}
-%
-%
-%\begin{frame}
-%
-%	\begin{block}{Teorema}
-%		Sean $G$ y $H$ gráficas y sea $f:G\rightarrow H$ un homomorfismo uniforme sobrejectivo, entonces la función inducida $\widetilde{f}:SP(c(H),s) \rightarrow SP(c(G),t)$ dada por
-%		\[
-%			\widetilde{f}(u)_v=u_x \in \mathbb{N}^{V(G)}\text{ para todo } v\in S_x=f^{-1}(x),
-%		\]
-%		es un homomorfismo inyectivo de grupos, es decir, $K(c(H)) \triangleleft K(c(G))$.
-%	\end{block}
-%
-%\end{frame}
-%
-%
-%\begin{frame}
-%
-%	\begin{block}{Ejemplo: Homomorfismo uniforme.}
-%	\begin{figure}[h]
-%		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
-%			\begin{tikzpicture}[scale=.9]
-%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-%	 			\draw (45:1) node[draw, circle, fill=black] (v1) {};
-%	 			\draw (135:1) node[draw, circle, fill=black] (v2) {};
-%	 			\draw (225:1) node[draw, circle, fill=black] (v3) {};
-% 				\draw (315:1) node[draw, circle, fill=black] (v4) {};
-% 				\draw (v1) to (v3);
-% 				\draw (v3) to (v2);
-%	 			\draw (v2) to (v4);
-%	 			\draw (v4) to (v1);
-%			\end{tikzpicture}
-%			&
-%			\begin{tikzpicture}[scale=.9]
-%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-%	 			\draw (0,0)+(0,.5) node {\small $\bf \longrightarrow$};
-%	 			\draw (0,.4)+(0,.5) node {\small $\bf f$};
-%			\end{tikzpicture}
-%			&
-%			\begin{tikzpicture}[scale=.9]
-%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
-% 				\draw (45:1) node[draw, circle, fill=black] (v2) {};
-% 				\draw (315:1) node[draw, circle, fill=black] (v3) {};
-% 				\draw (v2) to [bend right] (v3);
-% 				\draw (v2) to [bend left] (v3);
-%			\end{tikzpicture}
-%			\\
-%			$C_4$
-%			&
-%			&
-%			$K(2)$
-%		\end{tabular}
-%	\end{figure}
-%	
-%	Las configuraciones recurrentes de $c(K(2))=\mathcal{C}_3(2,1,1)$ son $(2,0)$, $(2,1)$, $(2,2)$, $(1,2)$ y $(0,2)$.
-%	
-%	\begin{figure}[h]
-%		\begin{tabular}{c@{\extracolsep{1cm}}c@{\extracolsep{1cm}}c}
-%			\begin{tikzpicture}[scale=.9]
-%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-%	 			\draw (0:1) node[draw, circle, fill=black] (v1) {};
-%	 			\draw (0:1.3) node {\small $s$};
-% 				\draw (120:1) node[draw, circle] (v2) {\small $2$};
-% 				\draw (240:1) node[draw, circle] (v3) {\small $1$};
-% 				\draw (120:1)+(-1,0) node[draw, circle] (v4) {\small $2$};
-% 				\draw (240:1)+(-1,0) node[draw, circle] (v5) {\small $1$};
-% 				\draw (v1) to (v2);
-%	 			\draw (v1) to (v3);
-%	 			\draw (v3) to (v4);
-% 				\draw (v5) to (v2);
-% 				\draw (v2) to (v3);
-% 				\draw (v4) to (v5);
-% 				\draw (v4) .. controls (-.5,2) and (.5,1) .. (v1);
-% 				\draw (v5) .. controls (-.5,-2) and (.5,-1) .. (v1);
-%			\end{tikzpicture}
-%			&
-%			\begin{tikzpicture}[scale=.9]
-%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 	
-%	 			\draw (0,0)+(0,1.6) node {\small $\bf \longleftarrow$};
-%	 			\draw (0,.4)+(0,1.6) node {\small $\bf \widetilde{f}$};
-%			\end{tikzpicture}
-%			&
-%			\begin{tikzpicture}[scale=.9]
-%				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt] 
-% 				\draw (0:1)+(0,1.1) node[draw, circle, fill=black] (v1) {};
-% 				\draw (0:1.3)+(0,1.1) node {\small $t$};
-% 				\draw (120:1)+(0,1.1) node[draw, circle] (v2) {\small $2$};
-% 				\draw (240:1)+(0,1.1) node[draw, circle] (v3) {\small $1$};
-% 				\draw (v1) to (v2);
-% 				\draw (v2) to [bend right] (v3);
-% 				\draw (v2) to [bend left] (v3);
-% 				\draw (v1) to (v3);
-%			\end{tikzpicture}
-%			\\
-%			$c(C_4)$
-%			&
-%			&
-%			$c(K(2))$
-%		\end{tabular}
-%	\end{figure}
-%	\end{block}
-%
-%\end{frame}
-%
-%
-%\begin{frame}
-%
-%	\begin{block}{Teorema}
-%		Sea $d$ un número natural, entonces el grupo de pilas de arena del cono del hipercubo $c(Q_d)$ está dado por:
-%		\[
-%			K(c(Q_d))\cong \bigoplus_{i=1}^{d} {\mathbb Z}_{2i+1}^{\binom{d}{i}}={\mathbb Z}_3^{d} \oplus {\mathbb Z}_5^{\binom{d}{2}} \oplus \cdots \oplus {\mathbb Z}_{2d-1}^{d} \oplus {\mathbb Z}_{2d+1}.
-%		\]
-%	\end{block}
-%
-%\end{frame}
-
-
-
-\subsection{La Familia $\mathcal G_i$}
-
-
-\begin{frame}
-	\frametitle{La Familia $\mathcal G_i$}
+	\pause
 	
-	\begin{block}{}
-		Denotemos por:
-		\begin{itemize}
-			\item $\redalert{f_i(G)}$, el número de factores invariantes iguales a $i$ de $K(G)$,
-			\item $\redalert{f_{\geq 2}(G)}$ al número de factores invariantes mayores a 2 de $K(G)$.
-		\end{itemize}
-	\end{block}
-	
-	\begin{block}{Teorema [Godsil, 2001]}
-	\[
-		f_1(G)+f_{\geq 2}(G)=n-c,
-	\]
-	donde $c$ es el número de componentes conexas.
-	\end{block}
-	
-	\begin{block}{Corolario}
-		Una gráfica simple conexa cumple
-		\[
-		1\leq f_1(G) \text{     y     }  f_{\geq 2}(G)\leq n-2.
-		\]
-	\end{block}
-	
-\end{frame}
-
-
-\begin{frame}
-	
-	\begin{block}{Definición}
-		Denotemos por $\redalert{\mathcal G_i}$ a la familia de gráficas \redalert{ simples conexas} con $\redalert{f_1(G)=i}$.
-	\end{block}
-	
-	\begin{block}{Ejemplo}
-		Por ejemplo, la siguiente gráfica pertenece a $\redalert{\mathcal G_2}$.
+	\begin{block}{Example}
+		The following graph belongs to $\redalert{\mathcal G_2}$.
 		\begin{center}
 			\begin{tabular}{c@{\extracolsep{2cm}}c}
 				\multirow{4}{2cm}{
