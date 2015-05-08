@@ -112,7 +112,7 @@
 	
 	\frametitle{Laplacian Matrix}
 	
-	\begin{block}{Definition}
+	\begin{Definition}
 		Let $G=(V,E)$ be a graph, the \alert{Laplacian matrix} $L(G)$ of $G$ is the matrix with rows and columns indexed by the vertices of $G$ given by
 	\[
 	L(G)_{u v}=
@@ -122,19 +122,19 @@
 	\end{cases}
 	\]
 	where \alert{$\deg_G(u)$} denote the degree of $u$, and \alert{$m_{u v}$} denote the number of edges from $u$ to $v$.
-	\end{block}
+	\end{Definition}
 	
 \end{frame}
 
 
 \begin{frame}
 
-	\begin{block}{Definition}
+	\begin{Definition}
 		By considering $L(G)$ as a linear operator on $\mathbb Z^n$, the \alert{critical group} $K(G)$ of $G$ is the torsion part of the cokernel of $L(G)$.
 		\[
 			coker(L(G))= \mathbb{Z}^{n}/{\sf Im}L(G) = \mathbb{Z}\oplus \alert{K(G)}.
 		\]
-	\end{block}
+	\end{Definition}
 
 \end{frame}
 
@@ -146,16 +146,18 @@
 
 	\frametitle{Invarian factors}	
 	
-	\begin{block}{Theorem}
+	\begin{Theorem}
 		\[
 			K(G) \cong \mathbb{Z}_{\alert{f_1}} \oplus \mathbb{Z}_{\alert{f_2}} \oplus \cdots \oplus\mathbb{Z}_{\alert{f_{n-1}}},
 		\]
 		where \alert{$f_i \leq 0$} and  \alert{$f_i \mid f_j$} for all \alert{$i\leq j$}.
-	\end{block}
+	\end{Theorem}
 	
 	\pause
 	
-	The \alert{$f_1, f_2, ..., f_{n-1}$} are called \alert{invariant factors}.
+	\begin{Definition}
+    The \alert{$f_1, f_2, ..., f_{n-1}$} are called \alert{invariant factors}.
+	\end{Definition}
 	
 	\pause
 	
@@ -178,7 +180,7 @@
 	\pause
 		
 	\begin{block}{Definition}
-		Let $\alert{\mathcal G_i}$ be the family of \alert{simple connected} graphs con $\alert{f_1(G)=i}$.
+		Let $\alert{\mathcal G_i}$ be the family of \alert{simple connected} graphs with $\alert{f_1(G)=i}$.
 	\end{block}
 	
 	\pause
@@ -236,62 +238,71 @@
 
 \begin{frame}
 	\begin{block}{Question}
-		¿Qué tan frecuente es cíclico el grupo crítico? es decir, ¿Qué tan frecuente $f_1(G)$ es igual a $n-1$ o $n-2$?
+		How often the critical group is cyclic? that is, how often $f_1(G)$ is equal to $n-2$ or $n-1$?
 	\end{block}
 	
-	\begin{block}{Conjetura [D. Wagner, 2001]}
-		Casi todas las gráficas simples y conexas tienen grupo crítico ciclico.
+	\begin{block}{Conjeture [D. Wagner, 2001]}
+		Almost every connected simple graph has a cyclic critical group.
 	\end{block}
 	
-	\begin{block}{Teorema [M. Wood, 2014]}
-		La probabilidad de que el grupo crítico de una gráfica aleatoria sea cíclica es asintóticamente a lo más 
+	\begin{block}{Theorem [M. Wood, 2014]}
+		The probability that the critical group of a random graph is cyclic is asymptotically at most
 		\[
 			\zeta(3)^{-1}\zeta(5)^{-1}\zeta(7)^{-1}\zeta(9)^{-1}\zeta(11)^{-1} \cdots \approx 0.7935212
 		\]
-		donde $\zeta$ es la función zeta de Riemann.
+		where $\zeta$ is the Riemann zeta function.
 	\end{block}
 \end{frame}
 
 
 \begin{frame}	
 	
-	\frametitle{Gráficas con un factor invariante igual a 1}
+	\frametitle{Graphs with one invariant factor equal to 1}
 	
-	Por otro lado...
+	On the other hand...
 	
-	\begin{block}{Pregunta}
-		¿Qué podemos decir sobre $\mathcal G_1$?
+	\pause
+	
+	\begin{block}{Question}
+		\begin{center}
+			What we can say about ${\mathcal G_1}$?
+		\end{center}
 	\end{block}
-%	\begin{block}{Observación}
-%		El conjunto $\mathcal G_i$ no es cerrado bajo subgráficas inducidas.\\
-%		Por ejemplo, el cono de $S_3$ pertenece a $\mathcal G_2$, pero $S_3$ pertenece a $\mathcal G_3$.\\
-%		También, la gráfica $K_6\setminus M_2$ pertenece a $\mathcal G_3$, y $K_5\setminus M_2$ pertenece a $\mathcal G_2$.
-%	\end{block}
 	
-	\begin{block}{Teorema [Lorenzini, 1989]}
-		Si $G$ es una gráfica \redalert{simple conexa}, entonces los siguientes enunciados son equivalentes:
+	\pause
+	
+	\begin{Theorem}
+		If $G$ is a \alert{simple connected} graphs, then the following statements are equivalent:
 		\begin{enumerate}[i.]
 			\item $G \in \mathcal{G}_1$,
-			\item $G$ es $P_2$-libre,
-			\item $G$ es la gráfica completa.
+			\item $G$ is $P_3$-free, where \alert{$P_n$} denote the path with $n$ vertices,
+			\item $G$ is a complete graph.
 		\end{enumerate}
-	\end{block}
+	\end{Theorem}
 	
 \end{frame}
 
 
+\subsection{Graphs with more than one invariant factor equal to 1}
+
 \begin{frame}
 
-	\begin{block}{Pregunta}
-		¿Qué podemos decir sobre $\mathcal G_2$ y $\mathcal G_3$?
+	\frametitle{Graphs with more than one invariant factor equal to 1}
+	
+	\begin{block}{Question}
+		\begin{center}
+			What we can say about ${\mathcal G_2}$ and ${\mathcal G_3}$?
+		\end{center}
 	\end{block}
 	
-	\begin{block}{Teorema}
-		Sea $G$ una gráfica \redalert{simple conexa}.
-		Entonces, $G\in \mathcal{G}_2$ si y solamente si $G$ es una de las siguientes gráficas:
+	\pause
+	
+	\begin{Theorem}
+		Let $G$ be a \alert{simple connected} graph.
+		Then, $G\in \mathcal{G}_2$ if and only if $G$ is one of the following graphs:
 		\begin{enumerate}[i.]
-			\item $K_{n_1,n_2,n_3}$, donde $n_1$, $n_2$ y $n_3$ tienen la misma paridad.
-			\item $L_{n_1,n_2,n_3}$, si $n_1, n_2, n_3 \geq 3$ tienen la misma paridad, u otros once casos.
+			\item \alert{$K_{n_1,n_2,n_3}$}, where $n_1$, $n_2$ y $n_3$ have the same parity.
+			\item \alert{$L_{n_1,n_2,n_3}$}, where $n_1, n_2, n_3 \geq 3$ have the same parity, and other \alert{eleven special cases}.
 			\[
 				\begin{tikzpicture}[scale=3]
 					\draw[draw=black!40, line width=15pt] (-.5,0) -- (0,0);
@@ -302,10 +313,251 @@
 				\end{tikzpicture}
 			\]
 		\end{enumerate}
+	\end{Theorem}
+	
+	The proof uses critical ideals
+\end{frame}
+
+
+\section{Critical ideals}
+
+\subsection{Definition}
+
+\begin{frame}
+	\frametitle{The critical ideals of a graph}
+	\begin{Definition}
+		Given a graph $G=(V,E)$ and a set of indeterminates $X_G=\{x_u \, : \, u\in V\}$, the \alert{generalised Laplacian matrix} $L(G,X_G)$ of $G$ is the matrix given by
+		\[
+			L(G,X_G)_{u v}=
+			\begin{cases}
+				x_u & \text{ if } u=v,\\
+				-m_{u v} & \text{ otherwise}.
+			\end{cases}
+		\]
+	\end{Definition}
+	
+	\vspace{.5cm}
+	
+	\begin{columns}[c]
+		\column{.3\textwidth}
+			\begin{tikzpicture}[scale=.8]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt,draw, circle, fill=black] 
+ 				\draw (1,-1) node[label=left:{\small $v_1$}] (v1) {};
+ 				\draw (1,1) node[label=below left:{\small $v_2$}] (v2) {}; 	
+ 				\draw (3,1) node[label=right:{\small $v_3$}] (v3) {};
+ 				\draw (3,-1) node[label=right:{\small $v_5$}] (v4) {};
+ 				\draw (4,0) node[label=right:{\small $v_4$}] (v5) {};
+ 				\draw (2,-1) node[label=left:{\small $v_6$}] (s) {};
+ 				\draw (v1) -- (v2) -- (v3) -- (v5) -- (v4)
+ 				(v2) -- (s) -- (v3);
+			\end{tikzpicture}
+			
+		\column{.7\textwidth}
+			$\tiny
+			L(G,X_G) = \left[
+			\begin{array}{cccccc}
+				x_1 & -1 & 0 & 0 & 0 & 0\\
+				-1 & x_2 & -1 & 0 & 0 & -1 \\
+				0 & -1 & x_3 & -1 & 0 & -1 \\
+				0 & 0 & -1 & x_4 & -1 & 0 \\
+				0 & 0 & 0 & -1 & x_5 & 0 \\
+				0 & -1 & -1 & 0 & 0 & x_6 \\
+			\end{array}
+			\right]		
+			$
+	\end{columns}
+	
+\end{frame}
+
+
+\begin{frame}
+	\begin{Definition}
+		For all $1\leq i \leq |V(G)|$, the \alert{$i$-th critical ideal} of $G$ is the determinantal ideal given by
+		\[\small
+			I_i(G,X_G)=\langle  \{ m \, : \, m \text{ is an }i\times i \text{ minor of }L(G,X_G)\}\rangle\subseteq \mathbb{Z}[X_G].
+		\]
+	\end{Definition}
+	
+	\pause
+	
+	\begin{Definition}
+		We say that a critical ideal is \alert{trivial} when it is equal to $\langle 1 \rangle$.
+	\end{Definition}
+	
+	\pause
+	
+	\begin{Definition}
+		The \alert{algebraic co-rank} $\gamma(G)$ of a graph $G$ is the number of trivial critical ideals of $G$.
+	\end{Definition}
+	
+	\pause
+	
+	\begin{block}{Remark}
+		If $H$ is an induced subgraph of $G$, then $I_i(H,X_H)\subseteq I_i(G,X_G)$  for all $i\leq |V(H)|$.
+		Thus $\gamma(H)\leq \gamma(G)$.
+	\end{block}	
+\end{frame}
+
+
+\begin{frame}
+	\begin{Definition}
+		$\alert{\Gamma_{\leq i}}=\{G\, :\, G \text{ is a simple connected graph with } \gamma(G)\leq i\}$.
+	\end{Definition}
+	
+	\pause
+	
+	\begin{block}{Remark}
+		$\Gamma_{\leq i}$ is closed under induced subgraphs.
 	\end{block}
 	
-	La demostración usa los ideales críticos.
 \end{frame}
+
+
+\begin{frame}
+	\begin{Theorem}
+		If $\deg(G)=(\deg_G(v_1), ..., \deg_G(v_n))$ is the degree vector of $G$, and $f_1\mid\cdots\mid f_{n-1}$ are the invariant factors of $K(G)$, then
+		\[
+			I_i(G,\deg(G))=\left< \prod_{j=1}^{i} f_j \right> \text{ for all }1\leq i\leq n-1.
+		\]
+	\end{Theorem}
+
+	\begin{block}{Remark}
+		\begin{itemize}
+			\item If the critical ideal $I_i(G,X_G)$ is trivial, then $f_i=1$.
+			\item If $f_i\neq1$, then the critical ideal $I_i(G, X_G)$ is not trivial.
+			\item $\mathcal{G}_i\subseteq \Gamma_{\leq i}$ for all $i\geq 0$.
+			%\item After analyzing the $i$-{\it th} invariant factor of the graphs in $\Gamma_{\leq i}$, the characterisation of $\mathcal G_i$ can be obtained.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{c@{\extracolsep{10mm}}c@{\extracolsep{10mm}}c@{\extracolsep{10mm}}c@{\extracolsep{10mm}}c}
+	\begin{tikzpicture}[scale=.7]
+	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+	\draw (126+36:1) node (v1) [draw,fill] {};
+	\draw (198+36:1) node (v2) [draw,fill] {};
+	\draw (270+36:1) node (v3) [draw,fill] {};
+	\draw (342+36:1) node (v4) [draw,fill] {};
+	\draw (v1) -- (v2);
+	\draw (v2) -- (v3);
+	\draw (v4) -- (v3);
+	\end{tikzpicture}
+&
+	\begin{tikzpicture}[scale=.7]
+	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+	\draw (126-36:1) node (v1) [draw,fill] {};
+	\draw (198-36:1) node (v2) [draw,fill] {};
+	\draw (270-36:1) node (v3) [draw,fill] {};
+	\draw (342-36:1) node (v4) [draw,fill] {};
+	\draw (414-36:1) node (v5) [draw,fill] {};
+	\draw (v1) -- (v2);
+	%\draw (v1) -- (v3);
+	%\draw (v1) -- (v4);
+	\draw (v1) -- (v5);
+	\draw (v2) -- (v3);
+	\draw (v2) -- (v4);
+	\draw (v2) -- (v5);
+	\draw (v3) -- (v4);
+	\draw (v3) -- (v5);
+	\draw (v4) -- (v5);
+	\end{tikzpicture}
+&
+	\begin{tikzpicture}[scale=.7]
+	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+	\draw (0:1) node (v1) [draw,fill] {};
+	\draw (60:1) node (v2) [draw,fill] {};
+	\draw (120:1) node (v3) [draw,fill] {};
+	\draw (180:1) node (v4) [draw,fill] {};
+	\draw (240:1) node (v5) [draw,fill] {};
+	\draw (300:1) node (v6) [draw,fill] {};
+	\draw (v1) -- (v2);
+	\draw (v1) -- (v3);
+	%\draw (v1) -- (v4);
+	\draw (v1) -- (v5);
+	\draw (v1) -- (v6);
+	%\draw (v2) -- (v3);
+	\draw (v2) -- (v4);
+	\draw (v2) -- (v5);
+	\draw (v2) -- (v6);
+	\draw (v3) -- (v4);
+	\draw (v3) -- (v5);
+	\draw (v3) -- (v6);
+	\draw (v4) -- (v5);
+	\draw (v4) -- (v6);
+	\draw (v5) -- (v6);
+	\end{tikzpicture}
+&
+	\begin{tikzpicture}[scale=.7]
+	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+	\draw (-.5,-.9) node (v1) [draw,fill] {};
+	\draw (.5,-.9) node (v2) [draw,fill] {};
+	\draw (0,0) node (v3) [draw,fill] {};
+	\draw (-.5,.9) node (v4) [draw,fill] {};
+	\draw (.5,.9) node (v5) [draw,fill] {};
+	\draw (v1) -- (v2);
+	\draw (v1) -- (v3);
+	\draw (v2) -- (v3);
+	\draw (v3) -- (v4);
+	\draw (v3) -- (v5);
+	\end{tikzpicture}
+&
+	\begin{tikzpicture}[scale=.7]
+	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+	\draw (-.5,0) node (v2) [draw,fill] {};
+	\draw (0,-.9) node (v1) [draw,fill] {};
+	\draw (.5,0) node (v3) [draw,fill] {};
+	\draw (1.5,0) node (v5) [draw,fill] {};
+	\draw (0,.9) node (v4) [draw,fill] {};
+	\draw (v1) -- (v2);
+	\draw (v1) -- (v3);
+	\draw (v2) -- (v3);
+	\draw (v2) -- (v4);
+	\draw (v3) -- (v4);
+	\draw (v3) -- (v5);
+	\end{tikzpicture}
+\\
+$P_4$
+&
+$K_5\setminus S_2$
+&
+$K_6\setminus M_2$
+&
+cricket
+&
+dart
+\end{tabular}
+\end{center}
+\caption{The family \alert{$\mathcal{F}_2$} of graphs.}
+\label{fig2}
+\end{figure}
+
+	\begin{Theorem}
+		If $G$ is a simple connected graph.
+		Then the following statements are equivalent:
+		\begin{itemize}
+			\item $G\in \Gamma_{\leq 2}$,
+			\item $G$ is $\mathcal{F}_2$-free,
+			\item $G$ is  \alert{$K_{n_1,n_2,n_3}$} o \alert{$L_{n_1,n_2,n_3}$}.
+		\end{itemize}
+	\end{Theorem}
+\end{frame}
+
+
+\begin{frame}
+	
+	\begin{exampleblock}{Our approach to solve this problem}
+		\begin{enumerate}
+			\item<2-> Finding the family $\cal F$ of induced forbidden subgraphs for $\Gamma_{\leq i}$.
+			\item<3-> Determining the $\cal F$-free graphs.
+			\item<4-> Computing the critical group of the $\cal F$-free graphs.
+		\end{enumerate}
+	\end{exampleblock}	
+	
+\end{frame}
+
 
 
 \begin{frame}
