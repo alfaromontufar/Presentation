@@ -124,6 +124,35 @@
 	where \alert{$\deg_G(u)$} denote the degree of $u$, and \alert{$m_{u v}$} denote the number of edges from $u$ to $v$.
 	\end{Definition}
 	
+	\begin{columns}[c]
+		\column{.3\textwidth}
+			\begin{tikzpicture}[scale=.8]
+				\tikzstyle{every node}=[inner sep=0pt, minimum width=5pt,draw, circle, fill=black] 
+ 				\draw (1,-1) node[label=left:{\small $v_1$}] (v1) {};
+ 				\draw (1,1) node[label=below left:{\small $v_2$}] (v2) {}; 	
+ 				\draw (3,1) node[label=right:{\small $v_3$}] (v3) {};
+ 				\draw (3,-1) node[label=right:{\small $v_5$}] (v4) {};
+ 				\draw (4,0) node[label=right:{\small $v_4$}] (v5) {};
+ 				\draw (2,-1) node[label=left:{\small $v_6$}] (s) {};
+ 				\draw (v1) -- (v2) -- (v3) -- (v5) -- (v4)
+ 				(v2) -- (s) -- (v3);
+			\end{tikzpicture}
+			
+		\column{.7\textwidth}
+			$\tiny
+			L(G,X_G) = \left[
+			\begin{array}{cccccc}
+				1 & -1 & 0 & 0 & 0 & 0\\
+				-1 & 3 & -1 & 0 & 0 & -1 \\
+				0 & -1 & 3 & -1 & 0 & -1 \\
+				0 & 0 & -1 & 2 & -1 & 0 \\
+				0 & 0 & 0 & -1 & 1 & 0 \\
+				0 & -1 & -1 & 0 & 0 & 2 \\
+			\end{array}
+			\right]		
+			$
+	\end{columns}
+	
 \end{frame}
 
 
@@ -241,17 +270,21 @@
 		How often the critical group is cyclic? that is, how often $f_1(G)$ is equal to $n-2$ or $n-1$?
 	\end{block}
 	
-	\begin{block}{Conjeture [D. Wagner, 2001]}
+	\pause
+	
+	\begin{block}{Conjeture (D. Wagner, 2001)}
 		Almost every connected simple graph has a cyclic critical group.
 	\end{block}
 	
-	\begin{block}{Theorem [M. Wood, 2014]}
+	\pause
+	
+	\begin{Theorem}[M. Wood, 2014]
 		The probability that the critical group of a random graph is cyclic is asymptotically at most
 		\[
 			\zeta(3)^{-1}\zeta(5)^{-1}\zeta(7)^{-1}\zeta(9)^{-1}\zeta(11)^{-1} \cdots \approx 0.7935212
 		\]
 		where $\zeta$ is the Riemann zeta function.
-	\end{block}
+	\end{Theorem}
 \end{frame}
 
 
@@ -271,7 +304,7 @@
 	
 	\pause
 	
-	\begin{Theorem}
+	\begin{Theorem}[Lorenzini, 1991]
 		If $G$ is a \alert{simple connected} graphs, then the following statements are equivalent:
 		\begin{enumerate}[i.]
 			\item $G \in \mathcal{G}_1$,
@@ -421,6 +454,8 @@
 		\]
 	\end{Theorem}
 
+	\pause
+
 	\begin{block}{Remark}
 		\begin{itemize}
 			\item If the critical ideal $I_i(G,X_G)$ is trivial, then $f_i=1$.
@@ -431,8 +466,28 @@
 	\end{block}
 \end{frame}
 
+
 \begin{frame}
-\begin{figure}[h]
+	\begin{Definition}
+		A graph $G$ is \alert{forbidden} for $\Gamma_{\leq k}$ when $\gamma(G)\geq k+1$.
+	\end{Definition}
+	
+	\pause
+	
+	\begin{Definition}
+		Let \alert{${\bf Forb}(\Gamma_{\leq k})$} be the set of minimal (under induced subgraphs property) forbidden graphs for $\Gamma_{\leq k}$.
+	\end{Definition}
+	
+	\pause
+	
+	\begin{block}{Remark}
+		$G\in\Gamma_{\leq k}$ if and only if $G$ is ${\bf Forb}(\Gamma_{\leq k})$-free.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
 \begin{center}
 \begin{tabular}{c@{\extracolsep{10mm}}c@{\extracolsep{10mm}}c@{\extracolsep{10mm}}c@{\extracolsep{10mm}}c}
 	\begin{tikzpicture}[scale=.7]
@@ -551,11 +606,954 @@ dart
 	\begin{exampleblock}{Our approach to solve this problem}
 		\begin{enumerate}
 			\item<2-> Finding the family $\cal F$ of induced forbidden subgraphs for $\Gamma_{\leq i}$.
-			\item<3-> Determining the $\cal F$-free graphs.
+			\item<3-> Determining the structure of the  $\cal F$-free graphs.
 			\item<4-> Computing the critical group of the $\cal F$-free graphs.
 		\end{enumerate}
 	\end{exampleblock}	
 	
+\end{frame}
+
+
+\begin{frame}
+
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{cccccccccc}
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (306:1) node (v1) [draw,fill=gray] {};
+\draw (18:1) node (v2) [draw,fill=gray] {};
+\draw (90:1) node (v3) [draw,fill=gray] {};
+\draw (162:1) node (v4) [draw,fill=gray] {};
+\draw (234:1) node (v5) [draw,fill=gray] {};
+\draw (v1) -- (v2) -- (v3) -- (v4) -- (v5);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (225:1) node (v1) [draw,fill=white] {};
+\draw (315:1) node (v4) [draw,fill=white] {};
+\draw (45:1) node (v6) [draw,fill=gray] {};
+\draw (135:1) node (v5) [draw,fill=gray] {};
+\draw (v1) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v5) [draw,fill=gray] {};
+\draw (234:1) node (v2) [draw,fill=gray] {};
+\draw (306:1) node (v4) [draw,fill=white] {};
+\draw (18:1) node (v6) [draw,fill=gray] {};
+\draw (90:1) node (v1) [draw,fill=gray] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (225:1) node (v5) [draw,fill=gray] {};
+\draw (315:1) node (v4) [draw,fill=white] {};
+\draw (45:1) node (v6) [draw,fill=gray] {};
+\draw (135:1) node (v1) [draw,fill=white] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (225:1) node (v5) [draw,fill=gray] {};
+\draw (315:1) node (v4) [draw,fill=white] {};
+\draw (45:1) node (v6) [draw,fill=gray] {};
+\draw (135:1) node (v1) [draw,fill=white] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v5) [draw,fill=gray] {};
+\draw (234:1) node (v3) [draw,fill=gray] {};
+\draw (306:1) node (v4) [draw,fill=gray] {};
+\draw (18:1) node (v6) [draw,fill=gray] {};
+\draw (90:1) node (v1) [draw,fill=white] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v3) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v1) [draw,fill] {};
+\draw (234:1) node (v3) [draw,fill=gray] {};
+\draw (306:1) node (v5) [draw,fill=gray] {};
+\draw (18:1) node (v2) [draw,fill=gray] {};
+\draw (90:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v1) [draw,fill=gray] {};
+\draw (234:1) node (v4) [draw,fill=gray] {};
+\draw (306:1) node (v5) [draw,fill=gray] {};
+\draw (18:1) node (v2) [draw,fill=white] {};
+\draw (90:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:.7) node (v5) [draw,fill=gray] {};
+\draw (240:1) node (v2) [draw,fill=gray] {};
+\draw (300:.7) node (v1) [draw,fill=gray] {};
+\draw (360:1) node (v4) [draw,fill=gray] {};
+\draw (420:.7) node (v6) [draw,fill=gray] {};
+\draw (480:1) node (v3) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v3) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v2) [draw,fill=gray] {};
+\draw (240:1) node (v6) [draw,fill=gray] {};
+\draw (300:1) node (v3) [draw,fill=gray] {};
+\draw (360:1) node (v4) [draw,fill=gray] {};
+\draw (420:1) node (v1) [draw,fill=gray] {};
+\draw (480:1) node (v5) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\end{tikzpicture}
+\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{cccccccccc}
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v1) [draw,fill=gray] {};
+\draw (240:1) node (v4) [draw,fill=gray] {};
+\draw (300:1) node (v3) [draw,fill=gray] {};
+\draw (360:1) node (v6) [draw,fill=gray] {};
+\draw (420:1) node (v2) [draw,fill=gray] {};
+\draw (480:1) node (v5) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v5) [draw,fill=gray] {};
+\draw (240:1) node (v2) [draw,fill=gray] {};
+\draw (300:1) node (v3) [draw,fill=gray] {};
+\draw (360:1) node (v6) [draw,fill=gray] {};
+\draw (420:1) node (v4) [draw,fill=gray] {};
+\draw (480:1) node (v1) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v4) [draw,fill=gray] {};
+\draw (240:1) node (v6) [draw,fill=gray] {};
+\draw (300:1) node (v3) [draw,fill=gray] {};
+\draw (360:1) node (v2) [draw,fill=gray] {};
+\draw (420:1) node (v5) [draw,fill=gray] {};
+\draw (480:1) node (v1) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v6) [draw,fill=gray] {};
+\draw (234:1) node (v2) [draw,fill=gray] {};
+\draw (306:1) node (v5) [draw,fill=gray] {};
+\draw (18:1) node (v1) [draw,fill] {};
+\draw (90:1) node (v3) [draw,fill=gray] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v2) [draw,fill=gray] {};
+\draw (240:1) node (v5) [draw,fill=gray] {};
+\draw (300:1) node (v3) [draw,fill=gray] {};
+\draw (360:1) node (v1) [draw,fill=gray] {};
+\draw (420:1) node (v4) [draw,fill=gray] {};
+\draw (480:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v6) [draw,fill=gray] {};
+\draw (234:1) node (v2) [draw,fill=white] {};
+\draw (306:1) node (v5) [draw,fill=gray] {};
+\draw (18:1) node (v1) [draw,fill=gray] {};
+\draw (90:1) node (v4) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (18:1) node (v4) [draw,fill=gray] {};
+\draw (90:1) node (v6) [draw,fill=gray] {};
+\draw (162:1) node (v2) [draw,fill=white] {};
+\draw (234:1) node (v5) [draw,fill=gray] {};
+\draw (306:1) node (v1) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (234:1) node (v3) [draw,fill=gray] {};
+\draw (162:1) node (v6) [draw,fill=gray] {};
+\draw (90:1) node (v2) [draw,fill=gray] {};
+\draw (18:1) node (v4) [draw,fill=gray] {};
+\draw (306:1) node (v5) [draw,fill=gray] {};
+\draw (-90:.2) node (v1) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v3) -- (v6);
+\draw (v4) -- (v5);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (18:1) node (v2) [draw,fill=gray] {};
+\draw (90:1) node (v6) [draw,fill=gray] {};
+\draw (162:1) node (v3) [draw,fill=gray] {};
+\draw (234:1) node (v5) [draw,fill=gray] {};
+\draw (0,-.2) node (v1) [draw,fill=gray] {};
+\draw (306:1) node (v4) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v3) -- (v6);
+\draw (v4) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (90:1) node (v1) [draw,fill=gray] {};
+\draw (162:1) node (v5) [draw,fill] {};
+\draw (234:1) node (v2) [draw,fill=gray] {};
+\draw (306:1) node (v3) [draw,fill=gray] {};
+\draw (18:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v3) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{cccccccccc}
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (90:1) node (v1) [draw,fill] {};
+\draw (162:1) node (v6) [draw,fill=gray] {};
+\draw (234:1) node (v4) [draw,fill=gray] {};
+\draw (306:1) node (v2) [draw,fill=gray] {};
+\draw (18:1) node (v5) [draw,fill=gray] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v1) [draw,fill=gray] {};
+\draw (240:1) node (v3) [draw,fill=gray] {};
+\draw (300:1) node (v5) [draw,fill=gray] {};
+\draw (360:1) node (v2) [draw,fill=gray] {};
+\draw (420:1) node (v4) [draw,fill=gray] {};
+\draw (480:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v4) [draw,fill=gray] {};
+\draw (240:1) node (v2) [draw,fill=gray] {};
+\draw (300:1) node (v5) [draw,fill=gray] {};
+\draw (360:1) node (v3) [draw,fill=gray] {};
+\draw (420:1) node (v1) [draw,fill=gray] {};
+\draw (480:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (90:1) node (v6) [draw,fill=gray] {};
+\draw (162:1) node (v2) [draw,fill=gray] {};
+\draw (234:1) node (v5) [draw,fill=gray] {};
+\draw (306:1) node (v1) [draw,fill] {};
+\draw (18:1) node (v4) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (-90:.2) node (v6) [draw,fill=gray] {};
+\draw (306:1) node (v2) [draw,fill=gray] {};
+\draw (18:1) node (v5) [draw,fill=gray] {};
+\draw (90:1) node (v3) [draw,fill=gray] {};
+\draw (162:1) node (v1) [draw,fill=gray] {};
+\draw (234:1) node (v4) [draw,fill=gray] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);	
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v1) [draw,fill=gray] {};
+\draw (240:1) node (v5) [draw,fill=gray] {};
+\draw (300:1) node (v3) [draw,fill=gray] {};
+\draw (360:1) node (v6) [draw,fill=gray] {};
+\draw (420:1) node (v2) [draw,fill=gray] {};
+\draw (480:1) node (v4) [draw,fill=gray] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v3) -- (v6);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v4) [draw,fill=gray] {};
+\draw (240:1) node (v2) [draw,fill=gray] {};
+\draw (300:1) node (v5) [draw,fill=gray] {};
+\draw (360:1) node (v1) [draw,fill=gray] {};
+\draw (420:1) node (v3) [draw,fill=gray] {};
+\draw (480:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v3) -- (v6);
+\draw (v4) -- (v6);
+\draw (v5) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v2) [draw,fill=gray] {};
+\draw (234:1) node (v4) [draw,fill=gray] {};
+\draw (306:1) node (v1) [draw,fill=gray] {};
+\draw (18:1) node (v3) [draw,fill=gray] {};
+\draw (90:1) node (v5) [draw,fill] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v3) -- (v5);
+\draw (v4) -- (v5);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (240:1) node (v1) [draw,fill] {};
+\draw (0:1) node (v3) [draw,fill=white] {};
+\draw (120:1) node (v2) [draw,fill] {};
+\draw (0,0) node (v7) [draw,fill=gray] {};
+\draw (v1) -- (v7);
+\draw (v2) -- (v7);
+\draw (v3) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v1) [draw,fill] {};
+\draw (270:1) node (v6) [draw,fill=gray] {};
+\draw (0:1) node (v2) [draw,fill=white] {};
+\draw (437:0) node (v4) [draw,fill=gray] {};
+\draw (90:1) node (v7) [draw,fill=gray] {};
+\draw (v1) -- (v6);
+\draw (v1) -- (v7);
+\draw (v2) -- (v6);
+\draw (v2) -- (v7);
+\draw (v4) -- (v7);
+\end{tikzpicture}
+\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{cccccccccc}
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (230:1) node (v7) [draw,fill=gray] {};
+\draw (282:1) node (v3) [draw,fill=gray] {};
+\draw (334:0) node (v6) [draw,fill=gray] {};
+\draw (0:1) node (v2) [draw,fill=white] {};
+\draw (110:1) node (v4) [draw,fill=white] {};
+\draw (v2) -- (v4);
+\draw (v2) -- (v6);
+\draw (v2) -- (v7);
+\draw (v3) -- (v7);
+\draw (v4) -- (v6);
+\draw (v4) -- (v7);
+\draw (v6) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v5) [draw,fill] {};
+\draw (234:1) node (v7) [draw,fill=gray] {};
+\draw (306:1) node (v3) [draw,fill=gray] {};
+\draw (18:1) node (v1) [draw,fill=white] {};
+\draw (90:1) node (v6) [draw,fill=gray] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v1) -- (v7);
+\draw (v3) -- (v7);
+\draw (v5) -- (v6);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (130:1) node (v7) [draw,fill=gray] {};
+\draw (230:1) node (v3) [draw,fill=gray] {};
+\draw (310:1) node (v6) [draw,fill=gray] {};
+\draw (50:1) node (v4) [draw,fill=gray] {};
+\draw (90:.3) node (v5) [draw,fill=gray] {};
+\draw (270:.3) node (v2) [draw,fill=white] {};
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v2) -- (v7);
+\draw (v3) -- (v6);
+\draw (v3) -- (v7);
+\draw (v4) -- (v5);
+\draw (v4) -- (v6);
+\draw (v4) -- (v7);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (315:1) node (v3) [draw,fill=gray] {};
+\draw (45:1) node (v6) [draw,fill] {};
+\draw (135:1) node (v1) [draw,fill=white] {};
+\draw (225:1) node (v4) [draw,fill] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v6);
+\draw (v3) -- (v6);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (135:1) node (v5) [draw,fill=gray] {};
+\draw (0,0) node (v3) [draw,fill=gray] {};
+\draw (225:1) node (v2) [draw,fill=gray] {};
+\draw (315:1) node (v4) [draw,fill] {};
+\draw (45:1) node (v1) [draw,fill] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v3) -- (v5);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v5) [draw,fill=gray] {};
+\draw (234:1) node (v3) [draw,fill=gray] {};
+\draw (306:1) node (v2) [draw,fill=white] {};
+\draw (18:1) node (v4) [draw,fill] {};
+\draw (90:1) node (v7) [draw,fill=gray] {};
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v7);
+\draw (v3) -- (v5);
+\draw (v4) -- (v7);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (225:1) node (v6) [draw,fill=gray] {};
+\draw (315:1) node (v3) [draw,fill=gray] {};
+\draw (45:1) node (v5) [draw,fill] {};
+\draw (135:1) node (v2) [draw,fill=white] {};
+\draw (0,0) node (v4) [draw,fill=gray] {};
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v6);
+\draw (v3) -- (v5);
+\draw (v3) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (130:1) node (v1) [draw,fill=white] {};
+\draw (230:1) node (v5) [draw,fill=white] {};
+\draw (50:1) node (v7) [draw,fill=gray] {};
+\draw (310:1) node (v3) [draw,fill=gray] {};
+\draw (180:1) node (v4) [draw,fill=gray] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v7);
+\draw (v3) -- (v5);
+\draw (v3) -- (v7);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (135:1) node (v3) [draw,fill=gray] {};
+\draw (225:1) node (v6) [draw,fill=gray] {};
+\draw (0,0) node (v1) [draw,fill=white] {};
+\draw (315:1) node (v4) [draw,fill=gray] {};
+\draw (45:1) node (v7) [draw,fill] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v6);
+\draw (v1) -- (v7);
+\draw (v3) -- (v6);
+\draw (v3) -- (v7);
+\draw (v4) -- (v6);
+\draw (v4) -- (v7);	
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v3) [draw,fill=gray] {};
+\draw (231:1) node (v5) [draw,fill=white] {};
+\draw (0:1) node (v4) [draw,fill=gray] {};
+\draw (385:0) node (v2) [draw,fill=white] {};
+\draw (488:1) node (v7) [draw,fill=gray] {};
+\draw (v2) -- (v4);
+\draw (v2) -- (v5);
+\draw (v2) -- (v7);
+\draw (v3) -- (v5);
+\draw (v3) -- (v7);
+\draw (v4) -- (v5);
+\draw (v4) -- (v7);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{cccccccccc}
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (162:1) node (v1) [draw,fill=white] {};
+\draw (234:1) node (v6) [draw,fill=gray] {};
+\draw (306:1) node (v3) [draw,fill=gray] {};
+\draw (90:1) node (v7) [draw,fill=gray] {};
+\draw (18:1) node (v5) [draw,fill=white] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v6);
+\draw (v1) -- (v7);
+\draw (v3) -- (v5);
+\draw (v3) -- (v6);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (135:1) node (v1) [draw,fill=gray] {};
+\draw (225:1) node (v5) [draw,fill] {};
+\draw (315:1) node (v2) [draw,fill] {};
+\draw (45:1) node (v7) [draw,fill] {};
+\draw (v1) -- (v5);
+\draw (v1) -- (v7);
+\draw (v2) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (90:1) node (v4) [draw,fill=gray] {};
+\draw (162:1) node (v1) [draw,fill] {};
+\draw (234:1) node (v5) [draw,fill=gray] {};
+\draw (306:1) node (v2) [draw,fill=gray] {};
+\draw (18:1) node (v7) [draw,fill] {};
+\draw (v1) -- (v4);
+\draw (v1) -- (v5);
+\draw (v1) -- (v7);
+\draw (v2) -- (v5);
+\draw (v2) -- (v7);
+\draw (v4) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (135:1) node (v1) [draw,fill] {};
+\draw (225:1) node (v3) [draw,fill] {};
+\draw (315:1) node (v2) [draw,fill=gray] {};
+\draw (45:1) node (v4) [draw,fill=gray] {};
+\draw (0,0) node (v7) [draw,fill=gray] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v4);
+\draw (v1) -- (v7);
+\draw (v2) -- (v3);
+\draw (v2) -- (v4);
+\draw (v2) -- (v7);
+\draw (v3) -- (v7);
+\draw (v4) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (135:1) node (v1) [draw,fill=gray] {};
+\draw (225:1) node (v4) [draw,fill=gray] {};
+\draw (315:1) node (v2) [draw,fill=gray] {};
+\draw (45:1) node (v3) [draw,fill] {};
+\draw (0,0) node (v6) [draw,fill] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v4);
+\draw (v1) -- (v6);
+\draw (v2) -- (v3);
+\draw (v2) -- (v4);
+\draw (v2) -- (v6);
+\draw (v3) -- (v6);
+\draw (v4) -- (v6);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (0,0) node (v3) [draw,fill=gray] {};
+\draw (180:1) node (v7) [draw,fill=gray] {};
+\draw (-90:1) node (v4) [draw,fill] {};
+\draw (0:1) node (v6) [draw,fill] {};
+\draw (90:1) node (v5) [draw,fill] {};
+\draw (v3) -- (v6);
+\draw (v3) -- (v7);
+\draw (v4) -- (v6);
+\draw (v4) -- (v7);
+\draw (v5) -- (v6);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (180:1) node (v1) [draw,fill] {};
+\draw (-90:1) node (v6) [draw,fill=white] {};
+\draw (0:1) node (v5) [draw,fill] {};
+\draw (0:.5) node (v3) [draw,fill=gray] {};
+\draw (90:1) node (v8) [draw,fill=gray] {};
+\draw (v1) -- (v6);
+\draw (v1) -- (v8);
+\draw (v3) -- (v6);
+\draw (v3) -- (v8);
+\draw (v5) -- (v6);
+\draw (v5) -- (v8);
+\draw (v6) -- (v8);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (135:1) node (v7) [draw,fill=white] {};
+\draw (225:1) node (v3) [draw,fill=white] {};
+\draw (315:1) node (v5) [draw,fill] {};
+\draw (45:1) node (v4) [draw,fill] {};
+\draw (v3) -- (v5);
+\draw (v3) -- (v7);
+\draw (v4) -- (v5);
+\draw (v4) -- (v7);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=.3]
+\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+\draw (90:1) node (v1) [draw,fill=white] {};
+\draw (210:1) node (v3) [draw,fill=white] {};
+\draw (330:1) node (v5) [draw,fill=white] {};
+\draw (0,0) node (v7) [draw,fill] {};
+\draw (v1) -- (v3);
+\draw (v1) -- (v5);
+\draw (v1) -- (v7);
+\draw (v3) -- (v5);
+\draw (v3) -- (v7);
+\draw (v5) -- (v7);
+\end{tikzpicture}
+\\
+\end{tabular}
+\end{center}
+\caption{The family of graphs ${\mathfrak F}$.}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{block}{Proposition}
+	Each graph in $\mathfrak F$ belongs to ${\bf Forb}(\Gamma_{\leq 3})$.
+\end{block}
+
+\pause
+
+\begin{block}{Conjecture}
+	$\mathfrak F={\bf Forb}(\Gamma_{\leq 3})$.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+	\begin{Theorem}
+		If a graph $G\in \Gamma_{\leq3}$ has clique number at most 3, then $G$ is an induced subgraph of a graph in the family of graphs $\mathfrak C$.
+	\end{Theorem}
+	
+	\begin{figure}[h!]
+\begin{center}
+\begin{tabular}{c@{\extracolsep{2cm}}c@{\extracolsep{2cm}}c}
+\begin{tikzpicture}[scale=1.2]
+ 	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 	\draw (90:.4) node[draw, fill=gray] (1) {};
+ 	\draw (210:.4) node[draw, fill=gray] (2) {};
+ 	\draw (330:.4) node[draw, fill=gray] (3) {};
+ 	\draw (90:1) node[draw, fill=gray] (4) {};
+ 	\draw (210:1) node[draw, fill=gray] (5) {};
+ 	\draw (330:1) node[draw, fill=gray] (6) {};
+ 	\draw (1) -- (4) -- (5) -- (2) -- (1) -- (3) -- (6) -- (4);
+ 	\draw (2) -- (3);
+ 	\draw (5) -- (6);
+ \end{tikzpicture}
+ &
+\begin{tikzpicture}[scale=1]
+ 	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 	\draw (30:1) node[draw, fill=white] (2) {\tiny $n_1$};
+ 	\draw (150:1) node[draw, fill=white] (3) {\tiny $n_2$};
+ 	\draw (270:1) node[draw, fill=white] (7) {\tiny $n_3$};
+ 	\draw (330:1) node[draw, fill] (5) {\bf\tiny\color{white} $n_4$};
+ 	\draw (210:1) node[draw, fill] (6) {\bf\tiny\color{white} $n_6$};
+ 	\draw (90:1) node[draw, fill] (1) {\bf\tiny\color{white} $n_5$};
+ 	\draw (0:0) node[draw, fill=black] (4) {\bf\tiny\color{white} $n_7$};
+ 	\draw (1) -- (4) -- (5) -- (2) -- (1) -- (3) -- (6) -- (4);
+ 	\draw (5) -- (7) -- (2) -- (3) -- (7) -- (6);
+ \end{tikzpicture}
+ &
+\begin{tikzpicture}[scale=1.1]
+ 	\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 	\draw ({90+72*2}:1) node[draw, fill=gray] (1) {};
+ 	\draw ({90+72*3}:1) node[draw, fill=gray] (2) {};
+ 	\draw ({90+72*4}:1) node[draw, fill=gray] (3) {};
+ 	\draw (90:1) node[draw, fill=gray] (4) {};
+ 	\draw ({90+72}:1) node[draw, fill=gray] (5) {};
+ 	\draw (0,0) node[draw, fill=white] (6) {\tiny ${n_1}$};
+ 	\draw (1) -- (2) -- (3) -- (4) -- (5) -- (1) -- (6);
+ 	\draw (2) -- (6) -- (3);
+ 	\draw (4) -- (6) -- (5);
+ \end{tikzpicture}
+ \\
+\end{tabular}
+\end{center}
+\caption{ The family of graphs $\mathfrak C$.}
+\end{figure}
+
+\pause
+
+\begin{Theorem} 
+Each induced subgraph of a graph in $\mathfrak C$ belongs to $\Gamma_{\leq3}$.
+\end{Theorem}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{center}
+	\begin{tikzpicture}[scale=1]
+ 		\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 		\draw (30:1) node[draw, fill=white] (2) {\tiny $n_1$};
+ 		\draw (150:1) node[draw, fill=white] (3) {\tiny $n_2$};
+ 		\draw (270:1) node[draw, fill=white] (7) {\tiny $n_3$};
+ 		\draw (330:1) node[draw, fill] (5) {\bf\tiny\color{white} $n_4$};
+ 		\draw (210:1) node[draw, fill] (6) {\bf\tiny\color{white} $n_6$};
+ 		\draw (90:1) node[draw, fill] (1) {\bf\tiny\color{white} $n_5$};
+ 		\draw (0:0) node[draw, fill=black] (4) {\bf\tiny\color{white} $n_7$};
+ 		\draw (1) -- (4) -- (5) -- (2) -- (1) -- (3) -- (6) -- (4);
+ 		\draw (5) -- (7) -- (2) -- (3) -- (7) -- (6);
+	 \end{tikzpicture}
+	\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{center}
+	\begin{tikzpicture}[scale=1]
+ 		\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 		\draw (30:1) node[draw, fill=white] (2) {\tiny $n_1$};
+ 		\draw (150:1) node[draw, fill=white] (3) {\tiny $n_2$};
+ 		\draw (270:1) node[draw, fill=white] (7) {\tiny $n_3$};
+ 		\draw (330:1) node (5) {\bf\tiny\color{white} $n_4$};
+ 		\draw (210:1) node (6) {\bf\tiny\color{white} $n_6$};
+ 		\draw (90:1) node (1) {\bf\tiny\color{white} $n_5$};
+ 		\draw (0:0) node (4) {\bf\tiny\color{white} $n_7$};
+ 		\draw (2) -- (3) -- (7) -- (2);
+	 \end{tikzpicture}
+	\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{center}
+	\begin{tikzpicture}[scale=1]
+ 		\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 		\draw (30:1) node[draw, fill=white] (2) {\tiny $n_1$};
+ 		\draw (150:1) node[draw, fill=white] (3) {\tiny $n_2$};
+ 		\draw (270:1) node[draw, fill=white] (7) {\tiny $n_3$};
+ 		\draw (330:1) node[draw, fill] (5) {\bf\tiny\color{white} $n_4$};
+ 		\draw (210:1) node[draw, fill] (6) {\bf\tiny\color{white} $n_6$};
+ 		\draw (90:1) node[draw, fill] (1) {\bf\tiny\color{white} $n_5$};
+ 		\draw (0:0) node[draw, fill=black] (4) {\bf\tiny\color{white} $n_7$};
+ 		\draw (1) -- (4) -- (5) -- (2) -- (1) -- (3) -- (6) -- (4);
+ 		\draw (5) -- (7) -- (2) -- (3) -- (7) -- (6);
+	 \end{tikzpicture}
+	\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+
+	\begin{center}
+	\begin{tikzpicture}[scale=1]
+ 		\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 		\draw (30:1) node (2) {\tiny\color{white} $n_1$};
+ 		\draw (150:1) node (3) {\tiny\color{white} $n_2$};
+ 		\draw (270:1) node[draw, fill=white] (7) {\tiny $n_3$};
+ 		\draw (330:1) node[draw, fill] (5) {\bf\tiny\color{white} $n_4$};
+ 		\draw (210:1) node[draw, fill] (6) {\bf\tiny\color{white} $n_6$};
+ 		\draw (90:1) node (1) {\bf\tiny\color{white} $n_5$};
+ 		\draw (0:0) node (4) {\bf\tiny\color{white} $n_7$};
+ 		\draw (5) -- (7) -- (6);
+	 \end{tikzpicture}
+	\end{center}
+
 \end{frame}
 
 
@@ -574,6 +1572,8 @@ dart
 	\end{tabular}
 
 \end{frame}
+
+
 
 \end{document}
 
