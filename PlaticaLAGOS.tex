@@ -168,7 +168,7 @@
 \end{frame}
 
 
-\subsection{Invariant factors}
+\subsection*{Invariant factors}
 
 
 \begin{frame}
@@ -179,7 +179,7 @@
 		\[
 			K(G) \cong \mathbb{Z}_{\alert{f_1}} \oplus \mathbb{Z}_{\alert{f_2}} \oplus \cdots \oplus\mathbb{Z}_{\alert{f_{n-1}}},
 		\]
-		where \alert{$f_i \leq 0$} and  \alert{$f_i \mid f_j$} for all \alert{$i\leq j$}.
+		where \alert{$f_i \geq 0$} and  \alert{$f_i \mid f_j$} for all \alert{$i\leq j$}.
 	\end{Theorem}
 	
 	\pause
@@ -196,7 +196,7 @@
 	
 \end{frame}
 
-\subsection{The family $\mathcal G_i$}
+\subsection*{The family $\mathcal G_i$}
 
 
 \begin{frame}
@@ -316,7 +316,7 @@
 \end{frame}
 
 
-\subsection{Graphs with more than one invariant factor equal to 1}
+\subsection*{Graphs with more than one invariant factor equal to 1}
 
 \begin{frame}
 
@@ -334,17 +334,17 @@
 		Let $G$ be a \alert{simple connected} graph.
 		Then, $G\in \mathcal{G}_2$ if and only if $G$ is one of the following graphs:
 		\begin{enumerate}[i.]
-			\item \alert{$K_{n_1,n_2,n_3}$}, where $n_1$, $n_2$ y $n_3$ have the same parity.
+			\item \alert{$K_{n_1,n_2,n_3}$}, where $n_1, n_2,n_3$ have the same parity.
 			\item \alert{$L_{n_1,n_2,n_3}$}, where $n_1, n_2, n_3 \geq 3$ have the same parity, and other \alert{eleven special cases}.
 			\[
-				\begin{tikzpicture}[scale=3]
-					\draw[draw=black!40, line width=15pt] (-.5,0) -- (0,0);
-					\draw[draw=black!40, line width=15pt] (.5,0) -- (0,0);
-					\draw (-.5,0) node[draw, circle, fill=black!40] () {\tiny $K_{n_1}$};
-					\draw (0,0) node[draw, circle, fill=white] () {\tiny $T_{n_2}$};
-					\draw (.5,0) node[draw, circle, fill=black!40] () {\tiny $K_{n_3}$};
-				\end{tikzpicture}
-			\]
+	\begin{tikzpicture}[scale=1]
+ 		\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
+ 		\draw (0,0) node[draw, fill=white] (7) {\tiny $n_3$};
+ 		\draw (-1,0) node[draw, fill] (5) {\bf\tiny\color{white} $n_4$};
+ 		\draw (1,0) node[draw, fill] (6) {\bf\tiny\color{white} $n_6$};
+ 		\draw (5) -- (7) -- (6);
+	 \end{tikzpicture}
+	 	\]
 		\end{enumerate}
 	\end{Theorem}
 	
@@ -354,7 +354,7 @@
 
 \section{Critical ideals}
 
-\subsection{Definition}
+\subsection*{Definition}
 
 \begin{frame}
 	\frametitle{The critical ideals of a graph}
@@ -407,7 +407,7 @@
 	\begin{Definition}
 		For all $1\leq i \leq |V(G)|$, the \alert{$i$-th critical ideal} of $G$ is the determinantal ideal given by
 		\[\small
-			I_i(G,X_G)=\langle  \{ m \, : \, m \text{ is an }i\times i \text{ minor of }L(G,X_G)\}\rangle\subseteq \mathbb{Z}[X_G].
+			I_i(G,X_G)=\langle  \{ m \, : \, m \text{ is an i-minor of }L(G,X_G)\}\rangle\subseteq \mathbb{Z}[X_G].
 		\]
 	\end{Definition}
 	
