@@ -260,7 +260,7 @@
 \begin{frame}
 	\begin{figure}
 		\includegraphics[height=6cm]{InvariantFactors.pdf}
-		\caption{\footnotesize Normalized number of graphs with $f_1$ invariant factors equal to 1.}
+		\caption{\footnotesize Normalized number of graphs with $f_1$ invariant factors equal to 1 and $n$ vertices.}
 	\end{figure}
 \end{frame}
 
@@ -322,7 +322,7 @@
 
 	\frametitle{Graphs with more than one invariant factor equal to 1}
 	
-	\begin{block}{Question}
+	\begin{block}{Question (Merino, 2001)}
 		\begin{center}
 			What we can say about ${\mathcal G_2}$ and ${\mathcal G_3}$?
 		\end{center}
@@ -339,9 +339,9 @@
 			\[
 	\begin{tikzpicture}[scale=1]
  		\tikzstyle{every node}=[minimum width=0pt, inner sep=1pt, circle]
- 		\draw (0,0) node[draw, fill=white] (7) {\tiny $n_3$};
- 		\draw (-1,0) node[draw, fill] (5) {\bf\tiny\color{white} $n_4$};
- 		\draw (1,0) node[draw, fill] (6) {\bf\tiny\color{white} $n_6$};
+ 		\draw (0,0) node[draw, fill=white] (7) {\tiny $n_2$};
+ 		\draw (-1,0) node[draw, fill] (5) {\bf\tiny\color{white} $n_1$};
+ 		\draw (1,0) node[draw, fill] (6) {\bf\tiny\color{white} $n_3$};
  		\draw (5) -- (7) -- (6);
 	 \end{tikzpicture}
 	 	\]
@@ -450,7 +450,7 @@
 	\begin{Theorem}
 		If $\deg(G)=(\deg_G(v_1), ..., \deg_G(v_n))$ is the degree vector of $G$, and $f_1\mid\cdots\mid f_{n-1}$ are the invariant factors of $K(G)$, then
 		\[
-			I_i(G,\deg(G))=\left< \prod_{j=1}^{i} f_j \right> \text{ for all }1\leq i\leq n-1.
+			I_i(G,\deg(G))=\left< \prod_{j=1}^{i} f_j\right> = \left< \Delta_i(G)\right> \text{ for all }1\leq i\leq n-1.
 		\]
 	\end{Theorem}
 
@@ -1560,16 +1560,20 @@ Each induced subgraph of a graph in $\mathfrak C$ belongs to $\Gamma_{\leq3}$.
 
 \begin{frame}
 
-	\begin{tabular}{cc}
-		\multirow{7}{5cm}{
-			\includegraphics[scale=.25]{mano.jpg}
-		}
-		& \\
+\begin{center}
+\Large Thank you!
+\end{center}
 
-& \\ 		& \\ 
-		& ¡Gracias! \\
-		& \\
-	\end{tabular}
+%	\begin{tabular}{cc}
+%		\multirow{7}{5cm}{
+%			\includegraphics[scale=.25]{mano.jpg}
+%		}
+%		& \\
+%
+%& \\ 		& \\ 
+%		& ¡Gracias! \\
+%		& \\
+%	\end{tabular}
 
 \end{frame}
 
